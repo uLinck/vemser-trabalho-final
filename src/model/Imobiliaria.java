@@ -1,4 +1,4 @@
 package model;
 
-public class Imobiliaria {
+public class Imobiliaria implements Servico{
 }
