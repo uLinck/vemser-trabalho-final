@@ -1,6 +1,6 @@
 package model;
 
 public class Endereco {
-    String rua,cep,complemento,cidade,bairro;
+    String rua,cep,complemento,cidade,bairro,estado;
     int numero;
 }

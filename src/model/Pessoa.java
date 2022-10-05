@@ -7,5 +7,5 @@ public interface Pessoa {
     String getEmail();
     String getDataNascimento();
     String getCpf();
-    List<Telefone> getTelefone();
+    String getTelefone();
 }

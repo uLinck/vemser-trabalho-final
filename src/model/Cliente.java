@@ -11,8 +11,7 @@ public abstract class Cliente implements Pessoa{
         this.dataNascimento = dataNascimento;
     }
 
-    String nome, cpf, email, dataNascimento;
-    List<Telefone> telefone = new ArrayList<>();
+    String nome, cpf, email, dataNascimento,telefone;
 
     public String getNome() {
         return nome;
@@ -38,16 +37,16 @@ public abstract class Cliente implements Pessoa{
         this.email = email;
     }
 
-    public List<Telefone> getTelefone() {
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public String getTelefone() {
         return telefone;
     }
 
-    public void addTelefone(Telefone telefone) {
-        this.telefone.add(telefone);
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public void setDataNascimento(String dataNascimento) {
