@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class Cliente implements Pessoa{
+public abstract class Cliente {
     public Cliente(String nome, String cpf, String email, String dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
