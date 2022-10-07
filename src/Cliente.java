@@ -11,7 +11,7 @@ public abstract class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
-    String nome, cpf, email, dataNascimento,telefone;
+    String nome, cpf, email, dataNascimento, telefone;
     TipoCliente tipoCliente;
 
     public String getNome() {
@@ -52,5 +52,24 @@ public abstract class Cliente {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", tipoCliente=" + tipoCliente +
+                '}';
     }
 }
