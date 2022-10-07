@@ -16,7 +16,7 @@ public class ManipulaCliente implements Crud<Cliente>{
     @Override
     public void listar() {
         for(int i=0; i < clientes.size(); i++){
-            System.out.println("id= "+i + clientes);
+            System.out.println("id= "+i + clientes.get(i));
         }
     }
 
