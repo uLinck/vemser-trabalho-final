@@ -1,7 +1,7 @@
 package model;
-public interface Crud {
-    boolean criar();
+public interface Crud<T> {
+    boolean criar(T obj);
     void listar();
-    boolean atualizar();
-    boolean deletar();
+    boolean atualizar(int idx,T obj);
+    boolean deletar(int idx);
 }

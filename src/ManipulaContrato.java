@@ -3,11 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManipulaContrato implements Crud{
+public class ManipulaContrato implements Crud<Contrato>{
     List<Contrato> contratos = new ArrayList<>();
+
     @Override
-    public boolean criar() {
-        Contrato contrato = new Contrato();
+    public boolean criar(Contrato obj) {
         return false;
     }
 
@@ -17,12 +17,12 @@ public class ManipulaContrato implements Crud{
     }
 
     @Override
-    public boolean atualizar() {
+    public boolean atualizar(int idx, Contrato obj) {
         return false;
     }
 
     @Override
-    public boolean deletar() {
+    public boolean deletar(int idx) {
         return false;
     }
 }
