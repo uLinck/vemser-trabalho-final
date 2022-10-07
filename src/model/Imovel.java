@@ -1,6 +1,6 @@
 package model;
 
-public class Imoveis {
+public class Imovel {
 
     private Endereco endereco;
     private int qntdQuartos,qntdBanheiros;

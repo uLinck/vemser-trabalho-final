@@ -9,7 +9,7 @@ public class Locador extends Cliente implements Impressao{
     }
 
     List<Contrato> contratos = new ArrayList<>();
-    List<Imoveis> imoveisParaAlugar = new ArrayList<>();
+    List<Imovel> imoveisParaAlugar = new ArrayList<>();
 
 
     @Override
