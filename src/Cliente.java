@@ -12,6 +12,7 @@ public abstract class Cliente {
     }
 
     String nome, cpf, email, dataNascimento,telefone;
+    TipoCliente tipoCliente;
 
     public String getNome() {
         return nome;
