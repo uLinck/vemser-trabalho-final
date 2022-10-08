@@ -15,10 +15,10 @@ public class ManipulaContrato implements Crud<Contrato>{
 
     @Override
     public void listar() {
-        contratos.stream()
-                .forEach(contrato -> {
-                    System.out.println(contrato);
-                });
+        for(int i=0; i < contratos.size(); i++){
+            System.out.print("id: "+i+" | ");
+            contratos.get(i).imprimir();
+        }
     }
 
     @Override

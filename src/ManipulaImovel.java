@@ -14,10 +14,10 @@ public class ManipulaImovel implements Crud<Imovel> {
 
     @Override
     public void listar() {
-        imoveis.stream()
-                .forEach(imovel -> {
-                    System.out.println(imovel);
-                });
+        for(int i=0; i < imoveis.size(); i++){
+            System.out.print("id: "+i+" | ");
+            imoveis.get(i).imprimir();
+        }
     }
 
     @Override

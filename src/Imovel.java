@@ -78,6 +78,14 @@ public abstract class Imovel implements Impressao{
 
     @Override
     public void imprimir() {
-
+        System.out.println("" +
+                "Endereco: " + endereco + " - " +
+                "Quantidade de Quartos: " + qntdQuartos +" - " +
+                "Quantidade de Banheiros: " + qntdBanheiros +" - " +
+                "Valor Mensal Aluguel:" + valorMensal +" - " +
+                "Taxa do Condominio: " + condominio +" - " +
+                "Alugado: " + alugado +" - " +
+                "Tipo do Imovel=" + tipoImovel);
     }
+
 }

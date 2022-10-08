@@ -59,6 +59,12 @@ public class Contrato implements Impressao {
 
     @Override
     public void imprimir() {
-
+        System.out.println("" +
+                "numeroDeContrato: " + numeroDeContrato + " - " +
+                "Locador: " + locador + " - " +
+                "Locatario: " + locatario + " - " +
+                "Valor do Aluguel: " + valorAluguel + " - " +
+                "Data de Entrada: " + dataEntrada + " - " +
+                "Data de Vencimento: " + dataVencimento + " - ");
     }
 }
