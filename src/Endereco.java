@@ -1,6 +1,6 @@
 package model;
 
-public class Endereco {
+public class Endereco implements Impressao {
     private String rua,cidade,estado,pais,cep,numero,complemento;
 
     public String getRua() {
@@ -60,15 +60,13 @@ public class Endereco {
     }
 
     @Override
-    public String toString() {
-        return "Endereco {" +
-                "rua='" + rua + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                ", pais='" + pais + '\'' +
-                ", cep='" + cep + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                '}';
+    public void imprimir() {
+        System.out.println("País: " + pais + " - " +
+                "Estado: " + estado + " - " +
+                "Cidade: " + cidade + " - " +
+                "Rua: " + rua + " - " +
+                "Número: " + numero + " - " +
+                "Complemento: " + complemento +
+                "CEP: " + cep);
     }
 }
