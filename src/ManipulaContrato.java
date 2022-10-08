@@ -2,13 +2,14 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ManipulaContrato implements Crud<Contrato>{
     List<Contrato> contratos = new ArrayList<>();
 
     @Override
-    public boolean criar(Contrato obj) {
-        contratos.add(obj);
+    public boolean criar(Contrato contrato) {
+        contratos.add(contrato);
         return false;
     }
 
@@ -21,8 +22,8 @@ public class ManipulaContrato implements Crud<Contrato>{
     }
 
     @Override
-    public boolean atualizar(int idx, Contrato obj) {
-        contratos.set(idx,obj);
+    public boolean atualizar(int idx, Contrato novoContrato) {
+        contratos.set(idx,novoContrato);
         return false;
     }
 
@@ -30,5 +31,18 @@ public class ManipulaContrato implements Crud<Contrato>{
     public boolean deletar(int idx) {
         contratos.remove(contratos.get(idx));
         return false;
+    }
+
+    public Contrato buscarContrato(String numeroDeContrato){
+        return contratos.stream()
+                .filter(imovel -> imovel.getNumeroDeContrato().contains(numeroDeContrato))
+                .findFirst()
+                .get();
+    }
+
+    public List<Contrato> buscarContrato(Cliente cliente){
+        return contratos.stream()
+                .filter(contrato -> contrato.getLocador().equals(cliente) || contrato.getLocatario().equals(cliente))
+                .toList();
     }
 }

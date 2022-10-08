@@ -22,12 +22,7 @@ public class ManipulaCliente implements Crud<Cliente>{
 
     @Override
     public boolean atualizar(int idx, Cliente clienteNovo) {
-        Cliente editaCliente = clientes.get(idx);
-        editaCliente.setNome(clienteNovo.getNome());
-        editaCliente.setCpf(clienteNovo.getCpf());
-        editaCliente.setTelefone(clienteNovo.getTelefone());
-        editaCliente.setEmail(clienteNovo.getEmail());
-        editaCliente.setTipoCliente(clienteNovo.getTipoCliente());
+        clientes.set(idx, clienteNovo);
         return true;
     }
 
@@ -37,15 +32,16 @@ public class ManipulaCliente implements Crud<Cliente>{
         return true;
     }
 
-    public void buscarCliente(String cpf){
-        Optional<Cliente> retornoCliente = clientes.stream()
+    public Cliente buscarCliente(String cpf){
+        return clientes.stream()
                 .filter(cliente -> cliente.getCpf().contains(cpf))
-                .findFirst();
+                .findFirst()
+                .get();
 
-        if(retornoCliente.isPresent()){
-            System.out.println(retornoCliente);
-        } else {
-            System.err.println("Cliente não encontrado.");
-        }
     }
+
+    public Cliente buscarCliente(int idx){
+        return clientes.get(idx);
+    }
+
 }

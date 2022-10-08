@@ -7,9 +7,9 @@ public class ManipulaEndereco implements Crud<Endereco>{
 
     List<Endereco> enderecos = new ArrayList<>();
     @Override
-    public boolean criar(Endereco obj) {
+    public boolean criar(Endereco endereco) {
 
-        this.enderecos.add(obj);
+        this.enderecos.add(endereco);
 
         return true;
     }
@@ -17,27 +17,15 @@ public class ManipulaEndereco implements Crud<Endereco>{
     @Override
     public void listar() {
 
-     for(int i = 0; i < enderecos.size(); i++ ) {
+         for(int i = 0; i < enderecos.size(); i++ ) {
+             System.out.println("Endereço id=" + i + " | " + enderecos.get(i));
 
-         System.out.println("Endereço id=" + i + " | " + enderecos.get(i));
-
-     }
-
+         }
     }
 
     @Override
-    public boolean atualizar(int idx, Endereco obj) {
-
-        Endereco atualizarEndereco = enderecos.get(idx);
-
-        atualizarEndereco.setCep(obj.getCep());
-        atualizarEndereco.setRua(obj.getRua());
-        atualizarEndereco.setPais(obj.getPais());
-        atualizarEndereco.setComplemento(obj.getComplemento());
-        atualizarEndereco.setEstado(obj.getEstado());
-        atualizarEndereco.setCidade(obj.getCidade());
-        atualizarEndereco.setNumero(obj.getNumero());
-
+    public boolean atualizar(int idx, Endereco enderecoNovo) {
+        enderecos.set(idx, enderecoNovo);
         return true;
     }
 
