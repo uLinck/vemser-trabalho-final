@@ -61,7 +61,7 @@ public class Cliente implements Impressao{
                 "CPF: " + cpf + " - " +
                 "Email: " + email + " - " +
                 "Telefone: " + telefone + " - " +
-                "Tipo Cliente: " + tipoCliente );
+                "Tipo Cliente: " + tipoCliente);
     }
 
 }
