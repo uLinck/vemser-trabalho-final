@@ -18,7 +18,8 @@ public class ManipulaEndereco implements Crud<Endereco>{
     public void listar() {
 
          for(int i = 0; i < enderecos.size(); i++ ) {
-             System.out.println("Endereço id=" + i + " | " + enderecos.get(i));
+             System.out.print("id: "+i+" | ");
+             enderecos.get(i).imprimir();
 
          }
     }
