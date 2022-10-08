@@ -1,6 +1,6 @@
 package model;
 
-public class Imovel {
+public abstract class Imovel implements Impressao{
 
     private Endereco endereco;
     private int qntdQuartos,qntdBanheiros;
@@ -74,5 +74,10 @@ public class Imovel {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public void imprimir() {
+
     }
 }

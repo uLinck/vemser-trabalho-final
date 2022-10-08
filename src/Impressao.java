@@ -1,5 +1,5 @@
 package model;
 
 public interface Impressao {
-    void impressao();
+    void imprimir();
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class Contrato {
+public class Contrato implements Impressao {
     private String numeroDeContrato;
     private Cliente locador;
     private Cliente locatario;
@@ -55,5 +55,10 @@ public class Contrato {
 
     public void setDataEntrada(String dataEntrada) {
         this.dataEntrada = dataEntrada;
+    }
+
+    @Override
+    public void imprimir() {
+
     }
 }

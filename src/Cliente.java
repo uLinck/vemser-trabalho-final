@@ -1,17 +1,18 @@
 package model;
 
-public abstract class Cliente {
+public class Cliente implements Impressao{
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, String email, String dataNascimento) {
+    public Cliente(String nome, String cpf, String email,String telefone,TipoCliente tipoCliente) {
+        this.telefone = telefone;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.dataNascimento = dataNascimento;
+        this.tipoCliente = tipoCliente;
     }
 
-    String nome, cpf, email, dataNascimento, telefone;
+    String nome, cpf, email, telefone;
     TipoCliente tipoCliente;
 
     public String getNome() {
@@ -38,20 +39,12 @@ public abstract class Cliente {
         this.email = email;
     }
 
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
     public String getTelefone() {
         return telefone;
     }
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public TipoCliente getTipoCliente() {
@@ -62,14 +55,13 @@ public abstract class Cliente {
     }
 
     @Override
-    public String toString() {
-        return "Cliente{" +
-                "nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", email='" + email + '\'' +
-                ", dataNascimento='" + dataNascimento + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", tipoCliente=" + tipoCliente +
-                '}';
+    public void imprimir() {
+        System.out.println("" +
+                "Nome: " + nome + " - " +
+                "CPF: " + cpf + " - " +
+                "Email: " + email + " - " +
+                "Telefone: " + telefone + " - " +
+                "Tipo Cliente: " + tipoCliente );
     }
+
 }

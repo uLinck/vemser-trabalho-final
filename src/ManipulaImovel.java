@@ -42,7 +42,7 @@ public class ManipulaImovel implements Crud<Imovel> {
                 .forEach(imovel -> System.out.println(imovel));
     }
 
-    public void listarCasa() {
+    public void listarCasas() {
         imoveis.stream()
                 .filter(imovel -> imovel.getTipoImovel().equals(TipoImovel.CASA))
                 .forEach(imovel -> System.out.println(imovel));
