@@ -8,9 +8,7 @@ public abstract class Imovel implements Impressao{
     private boolean alugado;
     private TipoImovel tipoImovel;
 
-    public Imovel(){
 
-    }
     public Imovel(Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel) {
         this.endereco = endereco;
         this.qntdQuartos = qntdQuartos;
@@ -19,6 +17,8 @@ public abstract class Imovel implements Impressao{
         this.condominio = condominio;
         this.tipoImovel = tipoImovel;
     }
+
+    public Imovel() {}
 
     public int getQntdQuartos() {
         return qntdQuartos;
@@ -79,7 +79,7 @@ public abstract class Imovel implements Impressao{
     @Override
     public void imprimir() {
         System.out.println("" +
-                "Endereco: " + endereco + " - " +
+                "CEP do endereco: " + endereco.getCep() + " - " +
                 "Quantidade de Quartos: " + qntdQuartos +" - " +
                 "Quantidade de Banheiros: " + qntdBanheiros +" - " +
                 "Valor Mensal Aluguel:" + valorMensal +" - " +
