@@ -4,6 +4,16 @@ public class Casa extends Imovel {
     private boolean areaDeLazer;
     private boolean garagem;
 
+    public Casa(boolean areaDeLazer, boolean garagem){
+
+        this.areaDeLazer = areaDeLazer;
+        this.garagem = garagem;
+
+    }
+    public Casa() {}
+
+
+
     public boolean isAreaDeLazer() {
         return areaDeLazer;
     }
