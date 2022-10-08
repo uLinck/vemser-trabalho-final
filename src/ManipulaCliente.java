@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ManipulaCliente implements Crud<Cliente>{
     List<Cliente> clientes = new ArrayList<>();
