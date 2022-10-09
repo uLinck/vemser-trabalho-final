@@ -24,13 +24,13 @@ public class ManipulaContrato implements Crud<Contrato>{
     @Override
     public boolean atualizar(int idx, Contrato novoContrato) {
         contratos.set(idx,novoContrato);
-        return false;
+        return true;
     }
 
     @Override
     public boolean deletar(int idx) {
         contratos.remove(contratos.get(idx));
-        return false;
+        return true;
     }
 
     public Contrato buscarContrato(String numeroDeContrato){
@@ -39,6 +39,10 @@ public class ManipulaContrato implements Crud<Contrato>{
                 .findFirst()
                 .get();
     }
+    public Contrato buscarContrato(int idx){
+        return contratos.get(idx);
+    }
+
 
     public List<Contrato> buscarContrato(Cliente cliente){
         return contratos.stream()

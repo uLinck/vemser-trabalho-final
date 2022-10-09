@@ -47,4 +47,18 @@ public class ManipulaImovel implements Crud<Imovel> {
                 .filter(imovel -> imovel.getTipoImovel().equals(TipoImovel.CASA))
                 .forEach(imovel -> System.out.println(imovel));
     }
+
+    public void listaImoveisDisponiveis(){
+
+        imoveis.stream()
+                .filter(imovel -> imovel.isAlugado() == false)
+                .forEach(imovel ->  imovel.imprimir());
+    }
+
+    public Imovel buscarImovelDisponivel(int idx){
+        return imoveis.stream()
+                .filter(imovel -> imovel.isAlugado() == false)
+                .toList()
+                .get(idx);
+    }
 }

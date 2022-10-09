@@ -40,7 +40,8 @@ public class Imobiliaria {
                             }
                             case 3 -> {
                                 crudCliente.listar();
-                            }case 4 -> {
+                            }
+                            case 4 -> {
                                 System.out.println("\nQual usuario você deseja Remover?");
                                 crudCliente.listar();
                                 opcao = linha.nextInt();
@@ -55,7 +56,8 @@ public class Imobiliaria {
 
                                 }
 
-                            }case 5 -> {
+                            }
+                            case 5 -> {
                                 //FALTA FINALIZAR
                                 System.out.println("Qual cliente você deseja buscar informações");
                                 crudCliente.listar();
@@ -67,7 +69,6 @@ public class Imobiliaria {
                             }
                         }
                     }
-
                     case 2 -> {//MENU IMOVEL
                         opcao = menuImoveis(linha);
                         switch (opcao) {
@@ -77,7 +78,7 @@ public class Imobiliaria {
                                 if (imovel != null) {
                                     crudImovel.criar(imovel);
                                 } else {
-                                    System.out.println("Deu algo errado, tente novamente!");
+                                    System.out.println("Imovel nã oencontrado! Tente novamente!");
                                 }
                             }
 
@@ -111,9 +112,71 @@ public class Imobiliaria {
                             }
                         }
 
-                    }case 3 -> {//MENU CONTRATOS
+                    }
+                    case 3 -> {//MENU CONTRATOS
+                        opcao = menuContrato(linha);
 
-                    } default -> {
+                        switch (opcao){
+                            case 1 -> {
+                                crudContrato.criar(pegarInformacoesContrato());
+                                System.out.println("Contrato criado com sucesso!");
+                            }
+                            case 2 -> {
+                                System.out.println("\nQual contrato você deseja atualizar?");
+                                crudContrato.listar();
+                                opcao = linha.nextInt();
+                                linha.nextLine();
+                                crudContrato.buscarContrato(opcao);
+                                crudContrato.atualizar(opcao, pegarInformacoesContrato());
+                                System.out.println("Atualizado com Sucesso!");
+                            }
+                            case 3 -> {
+                                crudContrato.listar();
+                            }
+                            case 4 -> {
+                                System.out.println("\nQual contrato você deseja Remover?");
+                                crudContrato.listar();
+                                opcao = linha.nextInt();
+                                linha.nextLine();
+                                System.err.print("\nTem certeza que deseja remover o Contrato('Sim' ou 'Nao'): "+opcao+"\n");
+                                crudContrato.buscarContrato(opcao).imprimir();
+                                if(linha.nextLine().toLowerCase().equals("sim")){
+                                    crudContrato.deletar(opcao);
+                                    System.err.println("Deletado com Sucesso!");
+                                }else {
+                                    System.err.println("Remover Cancelado!");
+
+                                }
+                            }
+                            case 5 -> {
+                                System.out.println("Como deseja buscar o contrato \n 1- Id do contrato \n2- Número do contrato: ");
+                                int opcaoBusca = linha.nextInt();
+                                linha.nextLine();
+
+                                crudContrato.listar();
+                                if(opcaoBusca == 1){
+                                    System.out.println("Busca por Id do Contrato");
+                                    System.out.println("Digite o Id do contrato: ");
+                                    int idContrato = linha.nextInt();
+                                    linha.nextLine();
+                                    crudContrato.buscarContrato(idContrato).imprimir();
+                                } else if (opcaoBusca == 2){
+                                    System.out.println("Busca por Número de Contrato");
+                                    System.out.println("Digite o número do contrato");
+                                    String numeroBusca = linha.nextLine();
+                                    crudContrato.buscarContrato(numeroBusca).imprimir();
+                                }
+
+
+                            }
+
+                        }
+
+                    }
+                    case 9 -> {
+                        execucao = false;
+                    }
+                    default -> {
                         throw new OpcaoInvalidaException();
                     }
                 }
@@ -289,6 +352,58 @@ public class Imobiliaria {
         }
 
         return imovel;
+    }
+
+
+    // Contrato
+    private static int menuContrato(Scanner linha) throws OpcaoInvalidaException{
+
+        System.out.println(AMARELO +"Imobiliaria Shinigamis"+RESET);
+        System.out.println("Escolha uma das opções do Menu contrato: ");
+        System.out.println(VERDE+"1- Cadastrar Contrato");
+        System.out.println("2- Editar informações do contrato");
+        System.out.println("3- Listar contratos");
+        System.out.println("4- Remover contrato");
+        System.out.println("5- Buscar contrato");
+        System.out.println(VERMELHO+"9- SAIR"+RESET);
+        int opcao = linha.nextInt();
+        linha.nextLine();
+        return opcao;
+    }
+
+    private static Contrato pegarInformacoesContrato() throws DadoInvalidoException{
+        System.out.println("Digite o numero do contrato: ");
+        String numeroDeContrato = linha.nextLine();
+
+        System.out.println("Escolha o Locador: ");
+        crudCliente.listarClientesLocadorOuLocatario(TipoCliente.LOCADOR);
+        int idLocador = linha.nextInt();
+        linha.nextLine();
+
+        System.out.println("Escolha o Locatario: ");
+        crudCliente.listarClientesLocadorOuLocatario(TipoCliente.LOCATARIO);
+        int idLocatario = linha.nextInt();
+        linha.nextLine();
+
+        System.out.println("Escolha o imovel: ");
+        crudImovel.listaImoveisDisponiveis();
+        int idImovel = linha.nextInt();
+        linha.nextLine();
+
+        System.out.println("Digite a data de entrada: ");
+        String dataEntrada = linha.nextLine();
+
+        System.out.println("Gigite a data de vencimento: ");
+        String dataVencimento = linha.nextLine();
+
+        Cliente locador = crudCliente.buscarClienteLocadorLocatario(idLocador, TipoCliente.LOCADOR);
+        Cliente locatario = crudCliente.buscarClienteLocadorLocatario(idLocatario, TipoCliente.LOCATARIO);
+
+        Imovel imovel = crudImovel.buscarImovelDisponivel(idImovel);
+        imovel.setAlugado(true);
+        double valorMensal = imovel.getValorMensal() + imovel.getCondominio();
+
+        return new Contrato(numeroDeContrato, locador, locatario, valorMensal, dataEntrada, dataVencimento);
     }
 
 }

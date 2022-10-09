@@ -44,4 +44,18 @@ public class ManipulaCliente implements Crud<Cliente>{
         return clientes.get(idx);
     }
 
+    public Cliente buscarClienteLocadorLocatario(int idx, TipoCliente tipoCliente){
+        return clientes.stream()
+                .filter(cliente -> cliente.getTipoCliente().equals(tipoCliente))
+                .toList()
+                .get(idx);
+    }
+    public void listarClientesLocadorOuLocatario(TipoCliente tipoCliente){
+        clientes.stream()
+                .filter(cliente -> cliente.getTipoCliente().equals(tipoCliente))
+                .toList()
+                .forEach(cliente -> cliente.imprimir());
+    }
+
+
 }

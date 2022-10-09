@@ -8,6 +8,14 @@ public class Contrato implements Impressao {
     private String dataEntrada;
     private String dataVencimento;
 
+    public Contrato(String numeroDeContrato, Cliente locador, Cliente locatario, double valorAluguel, String dataEntrada, String dataVencimento) {
+        this.numeroDeContrato = numeroDeContrato;
+        this.locador = locador;
+        this.locatario = locatario;
+        this.valorAluguel = valorAluguel;
+        this.dataEntrada = dataEntrada;
+        this.dataVencimento = dataVencimento;
+    }
 
     public String getDataVencimento() {
         return dataVencimento;
@@ -61,8 +69,10 @@ public class Contrato implements Impressao {
     public void imprimir() {
         System.out.println("" +
                 "numeroDeContrato: " + numeroDeContrato + " - " +
-                "Locador: " + locador + " - " +
-                "Locatario: " + locatario + " - " +
+                "Locador: " + "Nome Locador: "+ locador.getNome() +
+                            " CPF Locador:"+ locador.getCpf() +" - " +
+                "Locatario: " + "Nome Locatario: "+locatario.getNome() +
+                                " CPF Locatario: "+ locatario.getCpf() + " - " +
                 "Valor do Aluguel: " + valorAluguel + " - " +
                 "Data de Entrada: " + dataEntrada + " - " +
                 "Data de Vencimento: " + dataVencimento + " - ");
