@@ -44,5 +44,13 @@ class ManipulaContratoTest {
         assertTrue(crud.deletar(0));
     }
 
+    @Test
+    void testarBuscarContrato(){
+        init();
+        ManipulaContrato crud = new ManipulaContrato();
+        crud.criar(contrato);
+        assertEquals("001",crud.buscarContrato(0).getNumeroDeContrato());
+    }
+
 
 }
