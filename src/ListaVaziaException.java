@@ -1,7 +1,7 @@
 package model;
 
 public class ListaVaziaException extends Exception{
-    public ListaVaziaException(){
-        super("Lista Vazia!");
+    public ListaVaziaException() {
+        super("LISTA VAZIA\n");
     }
 }

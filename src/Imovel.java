@@ -8,6 +8,10 @@ public abstract class Imovel implements Impressao{
     private boolean alugado;
     private TipoImovel tipoImovel;
 
+    private Cliente dono;
+
+    public Imovel() {}
+
 
     public Imovel(Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel) {
         this.endereco = endereco;
@@ -16,9 +20,16 @@ public abstract class Imovel implements Impressao{
         this.valorMensal = valorMensal;
         this.condominio = condominio;
         this.tipoImovel = tipoImovel;
+        alugado = false;
     }
 
-    public Imovel() {}
+    public Cliente getDono() {
+        return dono;
+    }
+
+    public void setDono(Cliente dono) {
+        this.dono = dono;
+    }
 
     public int getQntdQuartos() {
         return qntdQuartos;
@@ -85,7 +96,7 @@ public abstract class Imovel implements Impressao{
                 "Valor Mensal Aluguel:" + valorMensal +" - " +
                 "Taxa do Condominio: " + condominio +" - " +
                 "Alugado: " + alugado +" - " +
-                "Tipo do Imovel=" + tipoImovel);
+                "Tipo do Imovel=" + tipoImovel+ " - "+"Dono: "+dono.getNome());
     }
 
 }

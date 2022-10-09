@@ -1,6 +1,19 @@
 package model;
 
 public class Endereco implements Impressao {
+    public Endereco(String rua, String cidade, String estado, String pais, String cep, String numero, String complemento) {
+        this.rua = rua;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
+        this.cep = cep;
+        this.numero = numero;
+        this.complemento = complemento;
+    }
+
+    public Endereco() {
+    }
+
     private String rua,cidade,estado,pais,cep,numero,complemento;
 
     public String getRua() {
@@ -66,7 +79,7 @@ public class Endereco implements Impressao {
                 "Cidade: " + cidade + " - " +
                 "Rua: " + rua + " - " +
                 "Número: " + numero + " - " +
-                "Complemento: " + complemento +
+                "Complemento: " + complemento + " - "+
                 "CEP: " + cep);
     }
 }

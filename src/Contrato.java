@@ -7,10 +7,12 @@ public class Contrato implements Impressao {
     private double valorAluguel;
     private String dataEntrada;
     private String dataVencimento;
+    private Imovel imovel;
 
-    public Contrato(String numeroDeContrato, Cliente locador, Cliente locatario, double valorAluguel, String dataEntrada, String dataVencimento) {
+    public Contrato(String numeroDeContrato, Imovel imovel, Cliente locatario, double valorAluguel, String dataEntrada, String dataVencimento) {
         this.numeroDeContrato = numeroDeContrato;
-        this.locador = locador;
+        this.imovel = imovel;
+        this.locador = imovel.getDono();
         this.locatario = locatario;
         this.valorAluguel = valorAluguel;
         this.dataEntrada = dataEntrada;
@@ -65,16 +67,26 @@ public class Contrato implements Impressao {
         this.dataEntrada = dataEntrada;
     }
 
+    public Imovel getImovel() {
+        return imovel;
+    }
+
+    public void setImovel(Imovel imovel) {
+        this.imovel = imovel;
+    }
+
     @Override
     public void imprimir() {
-        System.out.println("" +
-                "numeroDeContrato: " + numeroDeContrato + " - " +
+        System.out.print("" +
+                "Numero Do Contrato: " + numeroDeContrato + " \n " +
                 "Locador: " + "Nome Locador: "+ locador.getNome() +
-                            " CPF Locador:"+ locador.getCpf() +" - " +
+                " - CPF Locador: "+ locador.getCpf() +" \n " +
                 "Locatario: " + "Nome Locatario: "+locatario.getNome() +
-                                " CPF Locatario: "+ locatario.getCpf() + " - " +
+                " - CPF Locatario: "+ locatario.getCpf() + " \n " +
                 "Valor do Aluguel: " + valorAluguel + " - " +
                 "Data de Entrada: " + dataEntrada + " - " +
-                "Data de Vencimento: " + dataVencimento + " - ");
+                "Data de Vencimento: " + dataVencimento + " - \n"+
+                " Endereço: ");
+            imovel.getEndereco().imprimir();
     }
 }

@@ -7,6 +7,13 @@ import java.util.Optional;
 public class ManipulaContrato implements Crud<Contrato>{
     List<Contrato> contratos = new ArrayList<>();
 
+    public ManipulaContrato() {
+    }
+
+    public ManipulaContrato(List<Contrato> contratos) {
+        this.contratos = contratos;
+    }
+
     @Override
     public boolean criar(Contrato contrato) {
         contratos.add(contrato);
@@ -14,7 +21,10 @@ public class ManipulaContrato implements Crud<Contrato>{
     }
 
     @Override
-    public void listar() {
+    public void listar() throws ListaVaziaException{
+        if(contratos.isEmpty()){
+            throw new ListaVaziaException();
+        }
         for(int i=0; i < contratos.size(); i++){
             System.out.print("id: "+i+" | ");
             contratos.get(i).imprimir();
@@ -29,6 +39,7 @@ public class ManipulaContrato implements Crud<Contrato>{
 
     @Override
     public boolean deletar(int idx) {
+        contratos.get(idx).getImovel().setAlugado(false);
         contratos.remove(contratos.get(idx));
         return true;
     }

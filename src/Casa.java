@@ -4,12 +4,12 @@ public class Casa extends Imovel {
     private boolean areaDeLazer;
     private boolean garagem;
 
-    public Casa(boolean areaDeLazer, boolean garagem){
-
+    public Casa(Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel, boolean areaDeLazer, boolean garagem) {
+        super(endereco, qntdQuartos, qntdBanheiros, valorMensal, condominio, tipoImovel);
         this.areaDeLazer = areaDeLazer;
         this.garagem = garagem;
-
     }
+
     public Casa() {}
 
 

@@ -6,6 +6,12 @@ import java.util.List;
 public class ManipulaImovel implements Crud<Imovel> {
     List<Imovel> imoveis = new ArrayList<>();
 
+    public ManipulaImovel(List<Imovel> imoveis) {
+        this.imoveis = imoveis;
+    }
+    public ManipulaImovel() {
+    }
+
     @Override
     public boolean criar(Imovel imovel) {
         imoveis.add(imovel);
@@ -13,10 +19,13 @@ public class ManipulaImovel implements Crud<Imovel> {
     }
 
     @Override
-    public void listar() {
+    public void listar() throws ListaVaziaException{
+        if(imoveis.isEmpty()){
+            throw new ListaVaziaException();
+        }
         for(int i=0; i < imoveis.size(); i++){
             System.out.print("id: "+i+" | ");
-            imoveis.get(i).imprimir();
+            System.out.println(imoveis.get(i).getTipoImovel()+" - "+imoveis.get(i).getValorMensal()+" - Alugado: "+imoveis.get(i).isAlugado());
         }
     }
 
@@ -36,23 +45,17 @@ public class ManipulaImovel implements Crud<Imovel> {
         return imoveis.get(idx);
     }
 
-    public void listarApartamentos() {
-        imoveis.stream()
-                .filter(imovel -> imovel.getTipoImovel().equals(TipoImovel.APARTAMENTO))
-                .forEach(imovel -> System.out.println(imovel));
-    }
 
-    public void listarCasas() {
-        imoveis.stream()
-                .filter(imovel -> imovel.getTipoImovel().equals(TipoImovel.CASA))
-                .forEach(imovel -> System.out.println(imovel));
-    }
-
-    public void listaImoveisDisponiveis(){
-
-        imoveis.stream()
+    public void listaImovelDisponivel(){
+        int i = 0;
+        List<Imovel> listar =imoveis.stream()
                 .filter(imovel -> imovel.isAlugado() == false)
-                .forEach(imovel ->  imovel.imprimir());
+                .toList();
+        for(Imovel imovel:listar){
+            System.out.print("id: "+i+" | ");
+            listar.get(i).imprimir();
+            i++;
+        }
     }
 
     public Imovel buscarImovelDisponivel(int idx){
