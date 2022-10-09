@@ -50,7 +50,6 @@ public class ManipulaCliente implements Crud<Cliente>{
                 .filter(cliente -> cliente.getNome().toLowerCase().contains(nome.toLowerCase()))
                 .findFirst()
                 .get();
-
     }
 
     public Cliente buscarCliente(int idx){
