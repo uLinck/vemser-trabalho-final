@@ -402,6 +402,7 @@ public class Imobiliaria {
     }
 
     private static Contrato pegarInformacoesContrato(ManipulaCliente crudCliente,ManipulaImovel crudImovel) throws DadoInvalidoException{
+
         System.out.println(VERDE+"Digite o numero do contrato: ");
         String numeroDeContrato = linha.nextLine();
 

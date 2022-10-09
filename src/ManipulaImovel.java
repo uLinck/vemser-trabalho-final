@@ -46,11 +46,14 @@ public class ManipulaImovel implements Crud<Imovel> {
     }
 
 
-    public void listaImovelDisponivel(){
+    public void listaImovelDisponivel()throws DadoInvalidoException{
         int i = 0;
         List<Imovel> listar =imoveis.stream()
                 .filter(imovel -> imovel.isAlugado() == false)
                 .toList();
+        if(listar.isEmpty()){
+            throw new DadoInvalidoException("Nenhum Imovel Disponivel");
+        }
         for(Imovel imovel:listar){
             System.out.print("id: "+i+" | ");
             listar.get(i).imprimir();

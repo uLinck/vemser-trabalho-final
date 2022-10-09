@@ -19,6 +19,10 @@ public class Contrato implements Impressao {
         this.dataVencimento = dataVencimento;
     }
 
+    public Contrato() {
+
+    }
+
     public String getDataVencimento() {
         return dataVencimento;
     }
