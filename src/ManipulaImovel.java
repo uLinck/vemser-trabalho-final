@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManipulaImovel implements Crud<Imovel> {
-    List<Imovel> imoveis = new ArrayList<>();
+    private List<Imovel> imoveis = new ArrayList<>();
 
     public ManipulaImovel(List<Imovel> imoveis) {
         this.imoveis = imoveis;

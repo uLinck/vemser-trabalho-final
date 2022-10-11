@@ -15,7 +15,7 @@ public class ManipulaEndereco implements Crud<Endereco>{
         enderecos.add(new Endereco("Vinte e Três","Brasília","Distrito Federal","Brasil","68964-296","3341","Ap 4"));
     }
 
-    List<Endereco> enderecos = new ArrayList<>();
+    private List<Endereco> enderecos = new ArrayList<>();
     @Override
     public boolean criar(Endereco endereco) {
 
@@ -49,5 +49,9 @@ public class ManipulaEndereco implements Crud<Endereco>{
         this.enderecos.remove(idx);
 
         return true;
+    }
+
+    public Endereco buscarEndereco(int idx){
+        return enderecos.get(idx);
     }
 }

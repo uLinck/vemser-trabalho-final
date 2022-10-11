@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManipulaCliente implements Crud<Cliente>{
-    List<Cliente> clientes = new ArrayList<>();
+    private List<Cliente> clientes = new ArrayList<>();
 
     public ManipulaCliente(List<Cliente> clientes) {
         this.clientes = clientes;
