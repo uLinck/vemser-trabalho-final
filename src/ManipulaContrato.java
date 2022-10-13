@@ -27,7 +27,7 @@ public class ManipulaContrato implements Crud<Contrato>{
         }
         for(int i=0; i < contratos.size(); i++){
             System.out.print("id: "+i+" | ");
-            contratos.get(i).imprimir();
+            System.out.println("Numero Contrato: "+contratos.get(i).getNumeroDeContrato() + " | Locatario: "+contratos.get(i).getLocatario().getNome());
         }
     }
 

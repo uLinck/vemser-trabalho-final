@@ -70,7 +70,7 @@ public class ManipulaCliente implements Crud<Cliente>{
 
         for(Cliente cliente:listar){
             System.out.print("id: "+i+" | ");
-            listar.get(i).imprimir();
+            cliente.imprimir();
             i++;
         }
     }

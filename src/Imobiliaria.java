@@ -241,7 +241,7 @@ public class Imobiliaria {
         System.out.println(AZUL+"1- Menu Cliente"+RESET);
         System.out.println(ROXO+"2- Menu Imovel"+RESET);
         System.out.println(VERDE+"3- Menu Contratos"+RESET);
-        System.out.println(VERMELHO+"9- VOLTAR"+RESET);
+        System.out.println(VERMELHO+"9- SAIR"+RESET);
         String opcao = linha.nextLine();
         return opcao;
 
