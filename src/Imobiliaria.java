@@ -21,13 +21,13 @@ public class Imobiliaria {
         ManipulaImovel crudImovel = new ManipulaImovel();
         ManipulaContrato crudContrato = new ManipulaContrato();
 
-        crudImovel.criar(new Apartamento(crudEndereco.enderecos.get(0),2,2,1600.00,300.00,TipoImovel.APARTAMENTO,true,true,1 ));
+        crudImovel.criar(new Apartamento(crudEndereco.buscarEndereco(0),2,2,1600.00,300.00,TipoImovel.APARTAMENTO,true,true,1 ));
         crudImovel.buscarImovel(0).setDono(crudCliente.buscarCliente(0));
 
-        crudImovel.criar(new Apartamento(crudEndereco.enderecos.get(1),6,3,4600.00,900.00,TipoImovel.APARTAMENTO,false,true,3 ));
+        crudImovel.criar(new Apartamento(crudEndereco.buscarEndereco(1),6,3,4600.00,900.00,TipoImovel.APARTAMENTO,false,true,3 ));
         crudImovel.buscarImovel(1).setDono(crudCliente.buscarCliente(1));
 
-        crudImovel.criar(new Casa(crudEndereco.enderecos.get(2),4,2,2600.00,0,TipoImovel.CASA,true,true));
+        crudImovel.criar(new Casa(crudEndereco.buscarEndereco(2),4,2,2600.00,0,TipoImovel.CASA,true,true));
         crudImovel.buscarImovel(2).setDono(crudCliente.buscarCliente(1));
 
         crudContrato.criar(new Contrato("001",crudImovel.buscarImovel(0),crudCliente.buscarCliente(2),1900,"10/01/2020","10/07/2020"));

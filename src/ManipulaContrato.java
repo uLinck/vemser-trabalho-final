@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ManipulaContrato implements Crud<Contrato>{
-    List<Contrato> contratos = new ArrayList<>();
+    private List<Contrato> contratos = new ArrayList<>();
 
     public ManipulaContrato() {
     }

@@ -12,8 +12,8 @@ public class Cliente implements Impressao{
         this.tipoCliente = tipoCliente;
     }
 
-    String nome, cpf, email, telefone;
-    TipoCliente tipoCliente;
+    private String nome, cpf, email, telefone;
+    private TipoCliente tipoCliente;
 
     public String getNome() {
         return nome;
