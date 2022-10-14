@@ -1,8 +1,9 @@
-package model.com.shinigami.model;
+package model.com.shinigami.view;
 
 import model.com.shinigami.exceptions.DadoInvalidoException;
 import model.com.shinigami.exceptions.ListaVaziaException;
 import model.com.shinigami.exceptions.OpcaoInvalidaException;
+import model.com.shinigami.model.*;
 import model.com.shinigami.service.ManipulaCliente;
 import model.com.shinigami.service.ManipulaContrato;
 import model.com.shinigami.service.ManipulaEndereco;
@@ -29,7 +30,7 @@ public class Imobiliaria {
         ManipulaImovel crudImovel = new ManipulaImovel();
         ManipulaContrato crudContrato = new ManipulaContrato();
 
-        crudImovel.criar(new Apartamento(crudEndereco.buscarEndereco(0),2,2,1600.00,300.00,TipoImovel.APARTAMENTO,true,true,1 ));
+        crudImovel.criar(new Apartamento(crudEndereco.buscarEndereco(0),2,2,1600.00,300.00, TipoImovel.APARTAMENTO,true,true,1 ));
         crudImovel.buscarImovel(0).setDono(crudCliente.buscarCliente(0));
 
         crudImovel.criar(new Apartamento(crudEndereco.buscarEndereco(1),6,3,4600.00,900.00,TipoImovel.APARTAMENTO,false,true,3 ));
