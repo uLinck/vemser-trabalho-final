@@ -2,9 +2,9 @@ CREATE TABLE "ENDERECO" (
   "id_endereco" NUMBER NOT NULL,
   "rua" VARCHAR2(50) NOT NULL,
   "cidade" VARCHAR2(50) NOT NULL,
-  "estado" VARCHAR(50) NOT NULL,
-  "pais" VARCHAR(50) NOT NULL,
-  "complemento" VARCHAR(50) NOT NULL,
+  "estado" VARCHAR2(50) NOT NULL,
+  "pais" VARCHAR2(50) NOT NULL,
+  "complemento" VARCHAR2(50) NOT NULL,
   "numero" NUMBER NOT NULL,
   "cep" CHAR(9) NOT NULL,
   PRIMARY KEY ("id_endereco")
