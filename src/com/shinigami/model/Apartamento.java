@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.model;
 
 public class Apartamento extends Imovel {
     private boolean permiteAnimais;

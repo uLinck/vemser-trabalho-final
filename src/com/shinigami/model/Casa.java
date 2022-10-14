@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.model;
 
 public class Casa extends Imovel {
     private boolean areaDeLazer;

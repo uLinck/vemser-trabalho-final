@@ -1,4 +1,12 @@
-package model;
+package model.com.shinigami.model;
+
+import model.com.shinigami.exceptions.DadoInvalidoException;
+import model.com.shinigami.exceptions.ListaVaziaException;
+import model.com.shinigami.exceptions.OpcaoInvalidaException;
+import model.com.shinigami.service.ManipulaCliente;
+import model.com.shinigami.service.ManipulaContrato;
+import model.com.shinigami.service.ManipulaEndereco;
+import model.com.shinigami.service.ManipulaImovel;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

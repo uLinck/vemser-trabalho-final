@@ -1,6 +1,7 @@
-package model.teste;
+package model.com.shinigami.teste;
 
-import model.*;
+import model.com.shinigami.model.*;
+import model.com.shinigami.service.ManipulaImovel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class ManipulaImovelTest {
         Endereco endereco = new  Endereco("das Flores","Bacabal","Maranhão","Brasil","96028-188","3156","Casa 4");
         Cliente c1 = new Cliente("Eusébio Rabelo Leal","54222440019","eusebio@gmail.com","(21) 3534-7699", TipoCliente.LOCADOR);
         Cliente c2 = new Cliente("Dinarte Ponte Mateus","29854982017","dinarte@gmail.com","(38) 2511-4199",TipoCliente.LOCATARIO);
-        Imovel imovel = new Apartamento(endereco,2,2,1600.00,300.00,TipoImovel.APARTAMENTO,true,true,1 );;
+        Imovel imovel = new Apartamento(endereco,2,2,1600.00,300.00, TipoImovel.APARTAMENTO,true,true,1 );;
         imovel.setDono(c1);
 
     }

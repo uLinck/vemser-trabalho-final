@@ -1,7 +1,7 @@
-package model.teste;
+package model.com.shinigami.teste;
 
-import model.Endereco;
-import model.ManipulaEndereco;
+import model.com.shinigami.model.Endereco;
+import model.com.shinigami.service.ManipulaEndereco;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

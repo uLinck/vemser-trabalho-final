@@ -1,4 +1,8 @@
-package model;
+package model.com.shinigami.service;
+
+import model.com.shinigami.exceptions.DadoInvalidoException;
+import model.com.shinigami.exceptions.ListaVaziaException;
+import model.com.shinigami.model.Imovel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +23,7 @@ public class ManipulaImovel implements Crud<Imovel> {
     }
 
     @Override
-    public void listar() throws ListaVaziaException{
+    public void listar() throws ListaVaziaException {
         if(imoveis.isEmpty()){
             throw new ListaVaziaException();
         }
@@ -46,7 +50,7 @@ public class ManipulaImovel implements Crud<Imovel> {
     }
 
 
-    public void listaImovelDisponivel()throws DadoInvalidoException{
+    public void listaImovelDisponivel()throws DadoInvalidoException {
         int i = 0;
         List<Imovel> listar =imoveis.stream()
                 .filter(imovel -> imovel.isAlugado() == false)

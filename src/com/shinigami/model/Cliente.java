@@ -1,6 +1,6 @@
-package model;
+package model.com.shinigami.model;
 
-public class Cliente implements Impressao{
+public class Cliente implements Impressao {
     public Cliente() {
     }
 

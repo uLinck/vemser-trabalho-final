@@ -1,9 +1,12 @@
-package model;
+package model.com.shinigami.service;
+
+import model.com.shinigami.exceptions.ListaVaziaException;
+import model.com.shinigami.model.Endereco;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManipulaEndereco implements Crud<Endereco>{
+public class ManipulaEndereco implements Crud<Endereco> {
 
     public ManipulaEndereco(List<Endereco> enderecos) {
         this.enderecos = enderecos;
@@ -25,7 +28,7 @@ public class ManipulaEndereco implements Crud<Endereco>{
     }
 
     @Override
-    public void listar() throws ListaVaziaException{
+    public void listar() throws ListaVaziaException {
         if(enderecos.isEmpty()){
             throw new ListaVaziaException();
         }

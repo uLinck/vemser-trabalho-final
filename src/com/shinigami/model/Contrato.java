@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.model;
 
 public class Contrato implements Impressao {
     private String numeroDeContrato;

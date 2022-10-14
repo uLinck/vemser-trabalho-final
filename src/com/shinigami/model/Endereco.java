@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.model;
 
 public class Endereco implements Impressao {
     public Endereco(String rua, String cidade, String estado, String pais, String cep, String numero, String complemento) {

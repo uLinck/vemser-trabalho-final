@@ -1,8 +1,8 @@
-package model.teste;
+package model.com.shinigami.teste;
 
-import model.Cliente;
-import model.ManipulaCliente;
-import model.TipoCliente;
+import model.com.shinigami.model.Cliente;
+import model.com.shinigami.model.TipoCliente;
+import model.com.shinigami.service.ManipulaCliente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

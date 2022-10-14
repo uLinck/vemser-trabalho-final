@@ -1,10 +1,13 @@
-package model;
+package model.com.shinigami.service;
+
+import model.com.shinigami.exceptions.ListaVaziaException;
+import model.com.shinigami.model.Cliente;
+import model.com.shinigami.model.Contrato;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class ManipulaContrato implements Crud<Contrato>{
+public class ManipulaContrato implements Crud<Contrato> {
     private List<Contrato> contratos = new ArrayList<>();
 
     public ManipulaContrato() {
@@ -21,7 +24,7 @@ public class ManipulaContrato implements Crud<Contrato>{
     }
 
     @Override
-    public void listar() throws ListaVaziaException{
+    public void listar() throws ListaVaziaException {
         if(contratos.isEmpty()){
             throw new ListaVaziaException();
         }

@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.model;
 
 public enum TipoImovel  {
     CASA("Casa"),

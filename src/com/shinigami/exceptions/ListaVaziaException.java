@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.exceptions;
 
 public class ListaVaziaException extends Exception{
     public ListaVaziaException() {

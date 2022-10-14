@@ -1,6 +1,11 @@
-package model;
+package model.com.shinigami.model;
 
-public abstract class Imovel implements Impressao{
+import model.com.shinigami.model.Cliente;
+import model.com.shinigami.model.Endereco;
+import model.com.shinigami.model.Impressao;
+import model.com.shinigami.model.TipoImovel;
+
+public abstract class Imovel implements Impressao {
 
     private Endereco endereco;
     private int qntdQuartos,qntdBanheiros;

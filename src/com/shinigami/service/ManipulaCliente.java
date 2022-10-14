@@ -1,16 +1,20 @@
-package model;
+package model.com.shinigami.service;
+
+import model.com.shinigami.exceptions.ListaVaziaException;
+import model.com.shinigami.model.Cliente;
+import model.com.shinigami.model.TipoCliente;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManipulaCliente implements Crud<Cliente>{
+public class ManipulaCliente implements Crud<Cliente> {
     private List<Cliente> clientes = new ArrayList<>();
 
     public ManipulaCliente(List<Cliente> clientes) {
         this.clientes = clientes;
     }
     public ManipulaCliente() {
-        clientes.add(new Cliente("Eusébio Rabelo Leal","54222440019","eusebio@gmail.com","(21) 3534-7699",TipoCliente.LOCADOR));
+        clientes.add(new Cliente("Eusébio Rabelo Leal","54222440019","eusebio@gmail.com","(21) 3534-7699", TipoCliente.LOCADOR));
         clientes.add(new Cliente("Dinarte Ponte Mateus","29854982017","dinarte@gmail.com","(38) 2511-4199",TipoCliente.LOCADOR));
         clientes.add(new Cliente("Pablo Roriz Granja","77339166076","pablo@gmail.com","(69) 2318-9545",TipoCliente.LOCATARIO));
         clientes.add(new Cliente("Veronica Veríssimo Pêcego","08925438097","veronica@gmail.com","(68) 2867-1182",TipoCliente.LOCATARIO));
@@ -23,7 +27,7 @@ public class ManipulaCliente implements Crud<Cliente>{
     }
 
     @Override
-    public void listar() throws ListaVaziaException{
+    public void listar() throws ListaVaziaException {
         if(clientes.isEmpty()){
             throw new ListaVaziaException();
         }

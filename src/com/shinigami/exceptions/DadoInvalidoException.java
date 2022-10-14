@@ -1,4 +1,4 @@
-package model;
+package model.com.shinigami.exceptions;
 
 public class DadoInvalidoException extends Exception{
     public DadoInvalidoException() {
