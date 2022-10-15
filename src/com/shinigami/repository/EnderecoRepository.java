@@ -95,12 +95,124 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
     @Override
     public boolean editar(Integer id, Endereco endereco) throws BancoDeDadosException {
-        con = null;
-        
+        Connection con = null;
+        try{
+            con = ConexaoBancoDeDados.getConnection();
+
+            StringBuilder sql = new StringBuilder();
+
+            sql.append("UPDATE ENDERECO SET ");
+            sql.append(" RUA = ?,");
+            sql.append(" CIDADE = ?,");
+            sql.append(" ESTADO = ?, ");
+            sql.append(" PAIS = ?, ");
+            sql.append(" COMPLEMENTO = ? ");
+            sql.append(" NUMERO = ? ");
+            sql.append(" CEP = ? ");
+            sql.append(" WHERE ID_ENDERECO = ?");
+
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+
+            stmt.setString(1, endereco.getRua());
+            stmt.setString(2, endereco.getCidade());
+            stmt.setString(3, endereco.getEstado());
+            stmt.setString(4, endereco.getPais());
+            stmt.setString(5, endereco.getComplemento());
+            stmt.setInt(6, endereco.getNumero());
+            stmt.setString(7, endereco.getCep());
+            stmt.setInt(8, id);
+
+            int res = stmt.executeUpdate();
+            System.out.println("editaEndereco.res=" + res);
+            return res > 0;
+
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public List<Endereco> listar() throws BancoDeDadosException {
-        return null;
+        List<Endereco> enderecos = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            Statement stmt = con.createStatement();
+
+            String sql = "SELECT * FROM ENDERECO";
+
+            // Executa-se a consulta
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                Endereco endereco = new Endereco();
+
+                endereco.setIdEndereco(res.getInt("ID_ENDERECO"));
+                endereco.setRua(res.getString("RUA"));
+                endereco.setCidade(res.getString("CIDADE"));
+                endereco.setEstado(res.getString("ESTADO"));
+                endereco.setPais(res.getString("PAIS"));
+                endereco.setComplemento(res.getString("COMPLEMENTO"));
+                endereco.setNumero(res.getInt("NUMERO"));
+                endereco.setCep(res.getString("CEP"));
+                enderecos.add(endereco);
+            }
+
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return enderecos;
+    }
+
+    public Endereco buscarEndereco(Integer id) throws BancoDeDadosException{
+        Connection con = null;
+        Endereco endereco = new Endereco();
+        try{
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "SELECT * FROM ENDERECO WHERE ID_ENDERECO = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            endereco.setIdEndereco(res.getInt("ID_ENDERECO"));
+            endereco.setRua(res.getString("RUA"));
+            endereco.setCidade(res.getString("CIDADE"));
+            endereco.setEstado(res.getString("ESTADO"));
+            endereco.setPais(res.getString("PAIS"));
+            endereco.setComplemento(res.getString("COMPLEMENTO"));
+            endereco.setNumero(res.getInt("NUMERO"));
+            endereco.setCep(res.getString("CEP"));
+
+        }catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return endereco;
     }
 }

@@ -10,11 +10,10 @@ public abstract class Imovel implements Impressao {
     private Endereco endereco;
     private int qntdQuartos,qntdBanheiros,idImovel;
     private double valorMensal,condominio;
-    private boolean alugado;
+    private boolean alugado, ativo;
     private TipoImovel tipoImovel;
-
+    private int idEndereco;
     private Cliente dono;
-
     public Imovel() {}
 
 
@@ -27,6 +26,8 @@ public abstract class Imovel implements Impressao {
         this.tipoImovel = tipoImovel;
         alugado = false;
     }
+
+
 
     public int getIdImovel() {
         return idImovel;
@@ -83,7 +84,6 @@ public abstract class Imovel implements Impressao {
     public void setAlugado(boolean alugado) {
         this.alugado = alugado;
     }
-
     public TipoImovel getTipoImovel() {
         return tipoImovel;
     }
@@ -98,6 +98,14 @@ public abstract class Imovel implements Impressao {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
