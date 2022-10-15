@@ -10,7 +10,7 @@ public class ConexaoBancoDeDados {
     private static final String DATABASE = "xe";
 
     // Configuração dos parâmetros de autenticação
-    private static final String USER = "system";
+    private static final String USER = "shinigami";
     private static final String PASS = "oracle";
 
     public static Connection getConnection() throws SQLException {

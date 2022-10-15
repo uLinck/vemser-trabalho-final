@@ -4,7 +4,7 @@ public class Cliente implements Impressao {
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, String email,String telefone,TipoCliente tipoCliente) {
+    public Cliente(int idCliente,String nome, String cpf, String email,String telefone,TipoCliente tipoCliente) {
         this.telefone = telefone;
         this.nome = nome;
         this.cpf = cpf;
@@ -13,7 +13,16 @@ public class Cliente implements Impressao {
     }
 
     private String nome, cpf, email, telefone;
+    private int idCliente;
     private TipoCliente tipoCliente;
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
 
     public String getNome() {
         return nome;
