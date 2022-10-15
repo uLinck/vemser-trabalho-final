@@ -8,7 +8,7 @@ import model.com.shinigami.model.TipoImovel;
 public abstract class Imovel implements Impressao {
 
     private Endereco endereco;
-    private int qntdQuartos,qntdBanheiros;
+    private int qntdQuartos,qntdBanheiros,idImovel;
     private double valorMensal,condominio;
     private boolean alugado;
     private TipoImovel tipoImovel;
@@ -18,7 +18,7 @@ public abstract class Imovel implements Impressao {
     public Imovel() {}
 
 
-    public Imovel(Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel) {
+    public Imovel(int idImovel,Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel) {
         this.endereco = endereco;
         this.qntdQuartos = qntdQuartos;
         this.qntdBanheiros = qntdBanheiros;
@@ -26,6 +26,14 @@ public abstract class Imovel implements Impressao {
         this.condominio = condominio;
         this.tipoImovel = tipoImovel;
         alugado = false;
+    }
+
+    public int getIdImovel() {
+        return idImovel;
+    }
+
+    public void setIdImovel(int idImovel) {
+        this.idImovel = idImovel;
     }
 
     public Cliente getDono() {

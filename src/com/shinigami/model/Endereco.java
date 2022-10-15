@@ -1,7 +1,10 @@
 package model.com.shinigami.model;
 
 public class Endereco implements Impressao {
-    public Endereco(String rua, String cidade, String estado, String pais, String cep, String numero, String complemento) {
+    private String rua,cidade,estado,pais,cep,complemento;
+    private int idEndereco, numero;
+    public Endereco(int idEndereco,String rua, String cidade, String estado, String pais, String cep, int numero, String complemento) {
+        this.idEndereco = idEndereco;
         this.rua = rua;
         this.cidade = cidade;
         this.estado = estado;
@@ -11,11 +14,16 @@ public class Endereco implements Impressao {
         this.complemento = complemento;
     }
 
-    public Endereco() {
+    public int getIdEndereco() {
+        return idEndereco;
     }
 
-    private String rua,cidade,estado,pais,cep,numero,complemento;
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
+    }
 
+    public Endereco() {
+    }
     public String getRua() {
         return rua;
     }
@@ -56,11 +64,11 @@ public class Endereco implements Impressao {
         this.cep = cep;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 

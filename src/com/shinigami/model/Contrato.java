@@ -1,43 +1,28 @@
 package model.com.shinigami.model;
 
-public class Contrato implements Impressao {
-    private String numeroDeContrato;
-    private Cliente locador;
-    private Cliente locatario;
-    private double valorAluguel;
-    private String dataEntrada;
-    private String dataVencimento;
-    private Imovel imovel;
+import java.time.LocalDate;
 
-    public Contrato(String numeroDeContrato, Imovel imovel, Cliente locatario, double valorAluguel, String dataEntrada, String dataVencimento) {
-        this.numeroDeContrato = numeroDeContrato;
-        this.imovel = imovel;
-        this.locador = imovel.getDono();
-        this.locatario = locatario;
-        this.valorAluguel = valorAluguel;
-        this.dataEntrada = dataEntrada;
-        this.dataVencimento = dataVencimento;
-    }
+public class Contrato implements Impressao {
+    private Cliente locador,locatario;
+    private double valorAluguel;
+    private LocalDate dataEntrada,dataVencimento;
+    private Imovel imovel;
+    private int idContrato;
 
     public Contrato() {
 
     }
 
-    public String getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(String dataVencimento) {
+    public Contrato(int idContrato, Cliente locador, Cliente locatario, double valorAluguel, LocalDate dataEntrada, LocalDate dataVencimento, Imovel imovel) {
+        this.locador = locador;
+        this.locatario = locatario;
+        this.valorAluguel = valorAluguel;
+        this.dataEntrada = dataEntrada;
         this.dataVencimento = dataVencimento;
+        this.imovel = imovel;
+        this.idContrato = idContrato;
     }
 
-    public String getNumeroDeContrato() {
-        return numeroDeContrato;
-    }
-
-    public void setNumeroDeContrato(String numeroDeContrato) {
-        this.numeroDeContrato = numeroDeContrato;
-    }
 
     public Cliente getLocador() {
         return locador;
@@ -63,11 +48,11 @@ public class Contrato implements Impressao {
         this.valorAluguel = valorAluguel;
     }
 
-    public String getDataEntrada() {
+    public LocalDate getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(String dataEntrada) {
+    public void setDataEntrada(LocalDate dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
@@ -82,7 +67,7 @@ public class Contrato implements Impressao {
     @Override
     public void imprimir() {
         System.out.print("" +
-                "Numero Do Contrato: " + numeroDeContrato + " \n " +
+                "Numero Do Contrato: " + idContrato + " \n " +
                 "Locador: " + "Nome Locador: "+ locador.getNome() +
                 " - CPF Locador: "+ locador.getCpf() +" \n " +
                 "Locatario: " + "Nome Locatario: "+locatario.getNome() +

@@ -1,20 +1,21 @@
 package model.com.shinigami.model;
 
 public class Cliente implements Impressao {
+
+    private String nome, cpf, email, telefone;
+    private int idCliente;
+    private TipoCliente tipoCliente;
     public Cliente() {
     }
 
     public Cliente(int idCliente,String nome, String cpf, String email,String telefone,TipoCliente tipoCliente) {
+        this.idCliente = idCliente;
         this.telefone = telefone;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.tipoCliente = tipoCliente;
     }
-
-    private String nome, cpf, email, telefone;
-    private int idCliente;
-    private TipoCliente tipoCliente;
 
     public int getIdCliente() {
         return idCliente;
@@ -65,7 +66,7 @@ public class Cliente implements Impressao {
 
     @Override
     public void imprimir() {
-        System.out.println("" +
+        System.out.println("Id: " + idCliente +
                 "Nome: " + nome + " - " +
                 "CPF: " + cpf + " - " +
                 "Email: " + email + " - " +
