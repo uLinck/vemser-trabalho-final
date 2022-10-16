@@ -233,7 +233,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
             con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM IMOVEL";
+            String sql = "SELECT * FROM IMOVEL WHERE ATIVO LIKE 'T'";
 
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
