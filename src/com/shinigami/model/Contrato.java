@@ -9,6 +9,8 @@ public class Contrato implements Impressao {
     private Imovel imovel;
     private int idContrato;
 
+    private boolean ativo;
+
     public Contrato() {
 
     }
@@ -62,6 +64,30 @@ public class Contrato implements Impressao {
 
     public void setImovel(Imovel imovel) {
         this.imovel = imovel;
+    }
+
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
+    }
+
+    public int getIdContrato() {
+        return idContrato;
+    }
+
+    public void setIdContrato(int idContrato) {
+        this.idContrato = idContrato;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

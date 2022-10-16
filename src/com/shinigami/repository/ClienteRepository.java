@@ -212,7 +212,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            String sql = "SELECT * FROM CLIENTE WHERE UPPER(nome) = ? or UPPER(telefone) = ? or UPPER(cpf) = ? or UPPER(email) = ?";
+            String sql = "SELECT * FROM CLIENTE WHERE UPPER(nome) LIKE ? or UPPER(telefone) LIKE ? or UPPER(cpf) LIKE ? or UPPER(email) LIKE ?";
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
             txt = txt.toUpperCase();
