@@ -182,4 +182,44 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             }
         }
     }
+
+    public Contrato buscarContrato(int id) throws BancoDeDadosException{
+        Connection con = null;
+        try{
+            con = ConexaoBancoDeDados.getConnection();
+
+            ClienteRepository clienteRepository = new ClienteRepository();
+            ImovelRepository imovelRepository = new ImovelRepository();
+
+            String sql = "SELECT * FROM CONTRATO WHERE ID_CONTRATO = ?";
+            PreparedStatement stmt = con.prepareStatement(sql.toString());
+
+            stmt.setInt(1, id);
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            Contrato contrato = new Contrato();
+            contrato.setIdContrato(res.getInt("id_contrato"));
+            contrato.setValorAluguel(res.getDouble("valor_aluguel"));
+            contrato.setDataEntrada(res.getDate("data_entrada").toLocalDate());
+            contrato.setDataVencimento(res.getDate("data_vencimento").toLocalDate());
+            contrato.setLocatario(clienteRepository.buscarCliente(res.getInt("id_locatario")));
+            contrato.setLocador(clienteRepository.buscarCliente(res.getInt("id_locador")));
+            contrato.setImovel(imovelRepository.buscarImovel(res.getInt("id_imovel")));
+            contrato.setAtivo(res.getBoolean("ativo"));
+
+            return contrato;
+
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        }finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

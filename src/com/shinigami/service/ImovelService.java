@@ -21,7 +21,7 @@ public class ImovelService {
         try{
             validaValorImovel(imovel);
             Imovel adicionaImovel = imovelRepository.adicionar(imovel);
-            System.out.println("contato adicinado com sucesso! " + adicionaImovel);
+            System.out.println("Imovel adicinado com sucesso! " + adicionaImovel);
             return true;
 
         }catch (BancoDeDadosException e){
@@ -29,45 +29,6 @@ public class ImovelService {
             return false;
         }
     }
-
-    public boolean validaValorImovel(Imovel imovel){
-       if(imovel.getValorMensal() <= 0) {
-           return false;
-        } else if(imovel.getValorMensal() + imovel.getCondominio() <= 0){
-            return false;
-        } else if(imovel.getCondominio() < 0) {
-           return false;
-       }
-        return true;
-    }
-
-    public boolean validaImovel(Imovel imovel) throws DadoInvalidoException {
-
-         if ((Integer)imovel.getDono().getIdCliente() != null) {
-            throw new DadoInvalidoException();
-        } else if(imovel.getTipoImovel() != null) {
-            throw new DadoInvalidoException();
-        } else if((Integer)imovel.getQntdQuartos() != null) {
-            throw  new DadoInvalidoException();
-        } else if((Integer)imovel.getQntdBanheiros() != null) {
-            throw new DadoInvalidoException();
-        } else if(imovel.getEndereco() != null) {
-            throw new DadoInvalidoException();
-        } else if((Double)imovel.getValorMensal() != null) {
-            throw new DadoInvalidoException();
-        } else if((Double)imovel.getCondominio() != null) {
-            throw new DadoInvalidoException();
-        }
-
-        if(imovel.getTipoImovel() == TipoImovel.APARTAMENTO) {
-           if((Boolean)((Apartamento)imovel).isPermiteAnimais() != null) {
-               throw new DadoInvalidoException(); // blow up
-           }
-        }
-    return true;
-    }
-
-
 
     public boolean removerImovel(Integer id) {
 
@@ -81,11 +42,11 @@ public class ImovelService {
         }
 
     }
-    public void editarEndereco(Integer id, Imovel imovel) {
+    public void editarImovel(Integer id, Imovel imovel) {
 
         try {
             boolean conseguiuEditar = imovelRepository.editar(id, imovel);
-            System.out.println("Endereco editado? " + conseguiuEditar + "| com id= " + id);
+            System.out.println("Imovel editado? " + conseguiuEditar + "| com id= " + id);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -111,5 +72,40 @@ public class ImovelService {
         }
     }
 
+    public boolean validaImovel(Imovel imovel) throws DadoInvalidoException {
+
+         if ((Integer)imovel.getDono().getIdCliente() != null) {
+            throw new DadoInvalidoException();
+        } else if(imovel.getTipoImovel() != null) {
+            throw new DadoInvalidoException();
+        } else if((Integer)imovel.getQntdQuartos() != null) {
+            throw  new DadoInvalidoException();
+        } else if((Integer)imovel.getQntdBanheiros() != null) {
+            throw new DadoInvalidoException();
+        } else if(imovel.getEndereco() != null) {
+            throw new DadoInvalidoException();
+        } else if((Double)imovel.getValorMensal() != null) {
+            throw new DadoInvalidoException();
+        } else if((Double)imovel.getCondominio() != null) {
+            throw new DadoInvalidoException();
+        }
+
+        if(imovel.getTipoImovel() == TipoImovel.APARTAMENTO) {
+           if((Boolean)((Apartamento)imovel).isPermiteAnimais() != null) {
+               throw new DadoInvalidoException(); // blow up
+           }
+        }
+        return true;
+    }
+    public boolean validaValorImovel(Imovel imovel){
+       if(imovel.getValorMensal() <= 0) {
+           return false;
+        } else if(imovel.getValorMensal() + imovel.getCondominio() <= 0){
+            return false;
+        } else if(imovel.getCondominio() < 0) {
+           return false;
+       }
+        return true;
+    }
 }
 

@@ -46,7 +46,6 @@ public class ClienteService {
             e.printStackTrace();
             return false;
         }
-
     }
 
     // atualização de um objeto

@@ -18,7 +18,7 @@ public class EnderecoService {
         try {
             validaEndereco(endereco);
             Endereco enderecoAdicionado = enderecoRepository.adicionar(formataEndereco(endereco));
-            System.out.println("contato adicinado com sucesso! " + enderecoAdicionado);
+            System.out.println("Endereco adicinado com sucesso! " + enderecoAdicionado);
             return true;
 
         } catch (BancoDeDadosException e) {
