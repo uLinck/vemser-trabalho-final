@@ -421,11 +421,9 @@ public class Imobiliaria {
             System.out.println("Neste apartamento há salão de festa? (Sim/Não)");
             boolean festa = linha.nextLine().equalsIgnoreCase("sim");
 
-
-
             ((Apartamento)imovelBusca).setPermiteAnimais(animais);
             ((Apartamento)imovelBusca).setSalaoDeFesta(festa);
-           // ((Apartamento)imovelBusca).setNumeroDeVagas(vagas);
+            
             return imovelBusca;
 
         }else{

@@ -156,11 +156,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                 if(imovel.getTipoImovel().equals(TipoImovel.APARTAMENTO)) {
                     stmt.setString(5, ((Apartamento) imovel).isPermiteAnimais() ? "T" : "F");
                     stmt.setString(6, ((Apartamento) imovel).isSalaoDeFesta() ? "T" : "F");
-                    //stmt.setString(7,null);
-                    //stmt.setString(8,null);
                 }else{
-                    //stmt.setString(5,null);
-                    //stmt.setString(6,null);
                     stmt.setString(5, ((Casa)imovel).isAreaDeLazer() ? "T" : "F");
                     stmt.setString(6, ((Casa)imovel).isGaragem() ? "T" : "F");
                 }
