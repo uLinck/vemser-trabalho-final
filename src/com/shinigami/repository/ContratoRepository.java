@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.com.shinigami.exceptions.BancoDeDadosException;
+import model.com.shinigami.exceptions.DadoInvalidoException;
 import model.com.shinigami.model.Contrato;
 
 public class ContratoRepository implements Repositorio<Integer, Contrato> {

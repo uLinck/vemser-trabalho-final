@@ -75,7 +75,7 @@ public class Cliente implements Impressao {
 
     @Override
     public void imprimir() {
-        System.out.println("Id: " + idCliente +
+        System.out.println("Id: " + idCliente + " - "+
                 "Nome: " + nome + " - " +
                 "CPF: " + cpf + " - " +
                 "Email: " + email + " - " +

@@ -22,7 +22,6 @@ public class ClienteService implements Service<Cliente>{
             validaNome(pessoa);
             validaEmail(pessoa);
             Cliente pessoaAdicionada = clienteRepository.adicionar(pessoa);
-            System.out.println("cliente adicinada com sucesso! " + pessoaAdicionada);
             return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();

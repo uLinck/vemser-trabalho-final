@@ -33,8 +33,8 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             cliente.setIdCliente(proximoId);
 
             String sql = "INSERT INTO CLIENTE\n" +
-                    "(id_cliente, nome , cpf , telefone , email , tipo_cliente)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?)\n";
+                    "(id_cliente, nome , cpf , telefone , email , tipo_cliente,ativo)\n" +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -44,9 +44,9 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             stmt.setString(4, cliente.getTelefone());
             stmt.setString(5, cliente.getEmail());
             stmt.setInt(6,cliente.getTipoCliente().ordinal());
+            stmt.setString(7,"T");
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarCliente.res=" + res);
             return cliente;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -67,7 +67,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            String sql = "UPDATE CLIENTE SET ativo = ? WHERE id_imovel = ?";
+            String sql = "UPDATE CLIENTE SET ativo = ? WHERE id_cliente = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -76,7 +76,6 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerClientePorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -99,14 +98,13 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            //("id_cliente", "nome" , "cpf" , "telefone" , "email" , "tipo_cliente")
             sql.append("UPDATE CLIENTE SET ");
             sql.append(" cpf = ?,");
             sql.append(" nome = ?,");
-            sql.append(" telefone = ?, ");
-            sql.append(" email = ?, ");
-            sql.append(" tipo_cliente = ? ");
-            sql.append(" WHERE id_pessoa = ? ");
+            sql.append(" telefone = ?,");
+            sql.append(" email = ?,");
+            sql.append(" tipo_cliente = ?");
+            sql.append(" WHERE id_cliente = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
@@ -115,11 +113,10 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             stmt.setString(3, cliente.getTelefone());
             stmt.setString(4, cliente.getEmail());
             stmt.setInt(5, cliente.getTipoCliente().ordinal());
-            stmt.setInt(6, id);
+            stmt.setInt(6, id.intValue());
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarCliente.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -172,7 +169,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         return clientes;
     }
 
-    public Cliente buscarCliente(Integer id) throws BancoDeDadosException{
+    public Cliente buscarCliente(int id) throws BancoDeDadosException{
         Cliente cliente = new Cliente();
         Connection con = null;
         try {
@@ -180,19 +177,19 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
 
             String sql = "SELECT * FROM CLIENTE WHERE id_cliente = ?";
 
-            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
 
-            ResultSet res = stmt.executeQuery(sql);
-
-            cliente.setIdCliente(res.getInt("id_cliente"));
-            cliente.setNome(res.getString("nome"));
-            cliente.setTelefone(res.getString("telefone"));
-            cliente.setCpf(res.getString("cpf"));
-            cliente.setEmail(res.getString("email"));
-            cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
-
+            ResultSet res = stmt.executeQuery();
+            if(res.next()) {
+                cliente.setIdCliente(res.getInt("id_cliente"));
+                cliente.setNome(res.getString("nome"));
+                cliente.setTelefone(res.getString("telefone"));
+                cliente.setCpf(res.getString("cpf"));
+                cliente.setEmail(res.getString("email"));
+                cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
+            }
         }catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
         }finally {
@@ -213,9 +210,9 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            String sql = "SELECT * FROM CLIENTE WHERE UPPER(nome) LIKE ? or UPPER(telefone) LIKE ? or UPPER(cpf) LIKE ? or UPPER(email) LIKE ?";
+            String sql = "SELECT * FROM CLIENTE WHERE UPPER(nome) = ? or UPPER(telefone) = ? or UPPER(cpf) = ? or UPPER(email) = ?";
 
-            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            PreparedStatement stmt = con.prepareStatement(sql);
             txt = txt.toUpperCase();
             stmt.setString(1, txt);
             stmt.setString(2, txt);
@@ -223,15 +220,15 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             stmt.setString(4, txt);
 
 
-            ResultSet res = stmt.executeQuery(sql);
-
-            cliente.setIdCliente(res.getInt("id_cliente"));
-            cliente.setNome(res.getString("nome"));
-            cliente.setTelefone(res.getString("telefone"));
-            cliente.setCpf(res.getString("cpf"));
-            cliente.setEmail(res.getString("email"));
-            cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
-
+            ResultSet res = stmt.executeQuery();
+            if(res.next()){
+                cliente.setIdCliente(res.getInt("id_cliente"));
+                cliente.setNome(res.getString("nome"));
+                cliente.setTelefone(res.getString("telefone"));
+                cliente.setCpf(res.getString("cpf"));
+                cliente.setEmail(res.getString("email"));
+                cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
+            }
         }catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
         }finally {

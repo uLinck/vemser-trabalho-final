@@ -24,7 +24,7 @@ public class EnderecoService implements Service<Endereco> {
             validaNumero(endereco.getNumero());
             validaRua(endereco.getRua());
             Endereco enderecoAdicionado = enderecoRepository.adicionar(formataEndereco(endereco));
-            System.out.println("Endereco adicinado com sucesso! " + enderecoAdicionado);
+            System.out.println("Endereco adicinado com sucesso!");
             return true;
 
         } catch (BancoDeDadosException e) {

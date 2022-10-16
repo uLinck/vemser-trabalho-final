@@ -35,7 +35,7 @@ public class Imobiliaria {
         while(execucao){
             int opcao;
             try{
-                opcao = Integer.parseInt(menuInicial());
+                opcao = menuInicial();
                 switch(opcao){
                     case 1 -> {//MENU CLIENTE
                         opcao = menuCliente();
@@ -69,10 +69,12 @@ public class Imobiliaria {
                                 }
 
                             }case 5 -> {//buscar
-                                System.out.println(AZUL+"Qual cliente você deseja buscar informações ? Nome ou ID"+RESET);
-                                serviceCliente.listar();
+                                System.out.println(AZUL+"Qual cliente você deseja buscar informações ? id/nome/telefone/cpf/email"+RESET);
                                 String buscar = linha.nextLine();
-                                serviceCliente.buscarCliente(buscar).imprimir();
+                                Cliente cliente = serviceCliente.buscarCliente(buscar);
+                                if(cliente != null){
+                                    System.out.println(VERMELHO+"Cliente não encontrado!"+RESET);
+                                }
 
                             }default -> {
                                 throw new OpcaoInvalidaException();
@@ -213,14 +215,14 @@ public class Imobiliaria {
         }
     }
 
-    private static String menuInicial() throws OpcaoInvalidaException{
+    private static int menuInicial() throws OpcaoInvalidaException{
         System.out.println(AMARELO +"\nImobiliaria Shinigamis"+RESET);
         System.out.println("Escolha uma das opções abaixo: ");
         System.out.println(AZUL+"1- Menu Cliente"+RESET);
         System.out.println(ROXO+"2- Menu Imovel"+RESET);
         System.out.println(VERDE+"3- Menu Contratos"+RESET);
         System.out.println(VERMELHO+"9- SAIR"+RESET);
-        String opcao = linha.nextLine();
+        int opcao = linha.nextInt();
         return opcao;
 
     }
@@ -317,12 +319,14 @@ public class Imobiliaria {
         if(tipo != 1 && tipo != 2){
             throw new DadoInvalidoException();
         }
-        TipoImovel tipoImovel = TipoImovel.CASA;
+        TipoImovel tipoImovel = TipoImovel.APARTAMENTO;
         if(tipo == 2){
-            tipoImovel = TipoImovel.APARTAMENTO;
+            tipoImovel = TipoImovel.CASA;
         }
         Endereco endereco = pegarInformacoesEndereco();
-        enderecoService.adicionar(endereco);
+        if(!enderecoService.adicionar(endereco)){
+            throw new DadoInvalidoException();
+        }
 
         System.out.println(ROXO+"Quantos quartos este imóvel contêm?");
         int quartoQntd = linha.nextInt();
@@ -362,6 +366,7 @@ public class Imobiliaria {
 
             System.out.println("Quantas vagas há neste apartamento?"+RESET);
             int vagas = linha.nextInt();
+            linha.nextLine();
             if(vagas < 0){
                 throw new DadoInvalidoException();
             }
