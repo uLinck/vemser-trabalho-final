@@ -190,7 +190,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
 
-            ResultSet res = stmt.executeQuery(sql);
+            ResultSet res = stmt.executeQuery();
 
             endereco.setIdEndereco(res.getInt("ID_ENDERECO"));
             endereco.setRua(res.getString("RUA"));

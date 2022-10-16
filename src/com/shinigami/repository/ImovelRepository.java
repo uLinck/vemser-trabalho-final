@@ -248,6 +248,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
+            EnderecoRepository enderecoRepository = new EnderecoRepository();
 
             String sql = "SELECT * FROM IMOVEL WHERE id_imovel = ?";
 
@@ -270,6 +271,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                     ((Apartamento) imovel).setPermiteAnimais(converteCharPraBoolean(res.getString("permite_animais")));
                     ((Apartamento) imovel).setSalaoDeFesta(converteCharPraBoolean(res.getString("salao_de_festas")));
                     ((Apartamento) imovel).setNumeroDeVagas(res.getInt("numero_de_vagas"));
+                    imovel.setEndereco(enderecoRepository.buscarEndereco(res.getInt("id_endereco")));
 
                     return imovel;
 
@@ -284,6 +286,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                     imovel.setQntdBanheiros(res.getInt("qntd_banheiros"));
                     ((Casa) imovel).setAreaDeLazer(converteCharPraBoolean(res.getString("area_de_lazer")));
                     ((Casa) imovel).setGaragem(converteCharPraBoolean(res.getString("garagem")));
+                    imovel.setEndereco(enderecoRepository.buscarEndereco(res.getInt("id_endereco")));
 
                     return imovel;
                 }
