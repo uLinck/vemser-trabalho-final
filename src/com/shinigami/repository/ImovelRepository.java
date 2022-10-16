@@ -131,39 +131,40 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                 //"(id_imovel, valor_mensal, condominio, alugado, qnt_quartos,
                 // qntd_banheiros, tipo_imovel, id_endereco, id_cliente, permite_animais, salao_de_festas)\n
 
+
                 sql.append("UPDATE IMOVEL SET");
                 sql.append(" valor_mensal = ?,");
                 sql.append(" condominio = ?,");
-                sql.append(" alugado = ?,");
-                sql.append(" qnt_quartos = ?,");
-                sql.append(" qnt_banheiros = ?,");
-                sql.append(" tipo_imovel = ?,");
-                sql.append(" permite_animais = ?,");
-                sql.append(" area_de_lazer = ?,");
-                sql.append(" garagem = ?,");
-                sql.append(" salao_de_festas = ?,");
+                sql.append(" qntd_quartos = ?,");
+                sql.append(" qntd_banheiros = ?,");
+                if(imovel.getTipoImovel().equals(TipoImovel.APARTAMENTO)){
+                    sql.append(" permite_animais = ?,");
+                    sql.append(" salao_de_festas = ?");
+                }else {
+                    sql.append(" area_de_lazer = ?,");
+                    sql.append(" garagem = ?");
+                }
                 sql.append(" WHERE id_imovel = ?");
 
                 PreparedStatement stmt = con.prepareStatement(sql.toString());
 
                 stmt.setDouble(1, imovel.getValorMensal());
                 stmt.setDouble(2, imovel.getCondominio());
-                stmt.setString(3, imovel.isAlugado() ? "T" : "F");
-                stmt.setInt(4, imovel.getQntdQuartos());
-                stmt.setInt(5, imovel.getQntdBanheiros());
-                stmt.setInt(6, imovel.getTipoImovel().ordinal());
-                if(imovel.getTipoImovel() == TipoImovel.APARTAMENTO) {
-                    stmt.setString(7, ((Apartamento) imovel).isSalaoDeFesta() ? "T" : "F");
-                    stmt.setString(8, ((Apartamento) imovel).isPermiteAnimais() ? "T" : "F");
-                    stmt.setString(9,null);
-                    stmt.setString(10,null);
+                stmt.setInt(3, imovel.getQntdQuartos());
+                stmt.setInt(4, imovel.getQntdBanheiros());
+
+                if(imovel.getTipoImovel().equals(TipoImovel.APARTAMENTO)) {
+                    stmt.setString(5, ((Apartamento) imovel).isPermiteAnimais() ? "T" : "F");
+                    stmt.setString(6, ((Apartamento) imovel).isSalaoDeFesta() ? "T" : "F");
+                    //stmt.setString(7,null);
+                    //stmt.setString(8,null);
                 }else{
-                    stmt.setString(7,null);
-                    stmt.setString(8,null);
-                    stmt.setString(9, ((Casa)imovel).isAreaDeLazer() ? "T" : "F");
-                    stmt.setString(10, ((Casa)imovel).isGaragem() ? "T" : "F");
+                    //stmt.setString(5,null);
+                    //stmt.setString(6,null);
+                    stmt.setString(5, ((Casa)imovel).isAreaDeLazer() ? "T" : "F");
+                    stmt.setString(6, ((Casa)imovel).isGaragem() ? "T" : "F");
                 }
-                stmt.setInt(11, id);
+                stmt.setInt(7, id);
 
                 //Executa-se a consulta
                 int res = stmt.executeUpdate();

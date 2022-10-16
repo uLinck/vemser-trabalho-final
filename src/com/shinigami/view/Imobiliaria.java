@@ -99,11 +99,9 @@ public class Imobiliaria {
                             case 2 -> {
                                 System.out.println(ROXO+"\nQual imóvel você deseja atualizar?"+RESET);
                                 imovelService.listar();
-                                int idImovel = linha.nextInt();
+                                Integer idImovel = linha.nextInt();
                                 linha.nextLine();
-                                Imovel novo = pegarInformacoesImovel(enderecoService);
-                                novo.setDono(imovelService.buscarImovel(idImovel).getDono());
-                                imovelService.editar(idImovel, novo);
+                                imovelService.editar(idImovel, editaInformacoesImovel(imovelService, idImovel));
                                 System.out.println(VERDE+"Atualizado com Sucesso!"+RESET);
                             }
                             case 3 -> {
@@ -372,6 +370,64 @@ public class Imobiliaria {
             }
 
             return new Apartamento(endereco,quartoQntd,banheiroQntd,mensalValor,condominioValor,tipoImovel,animais,festa,vagas);
+        }else{
+            throw new DadoInvalidoException();
+        }
+    }
+
+    private static Imovel editaInformacoesImovel(ImovelService imovelService, Integer id) throws DadoInvalidoException, BancoDeDadosException{
+
+        Imovel imovelBusca = imovelService.buscarImovel(id);
+
+        System.out.println(ROXO+"Quantos quartos este imóvel contêm?");
+        int quartoQntd = linha.nextInt();
+        linha.nextLine();
+
+        System.out.println("Quantos banheiros este imóvel contêm?");
+        int banheiroQntd = linha.nextInt();
+        linha.nextLine();
+
+        System.out.println("Valor mensal deste imóvel:");
+        double mensalValor = linha.nextDouble();
+        linha.nextLine();
+
+        System.out.println("Valor do condomínio deste imóvel: (Informe '0' caso não tenha valor de condomínio)"+RESET);
+        double condominioValor = linha.nextDouble();
+        linha.nextLine();
+
+        imovelBusca.setValorMensal(mensalValor);
+        imovelBusca.setCondominio(condominioValor);
+        imovelBusca.setQntdBanheiros(banheiroQntd);
+        imovelBusca.setQntdQuartos(quartoQntd);
+
+        if( quartoQntd <= 0 || banheiroQntd <= 0 || mensalValor <= 0 || condominioValor < 0){
+            throw new DadoInvalidoException();
+        }
+        if (imovelBusca.getTipoImovel().equals(TipoImovel.CASA)) {
+            System.out.println(ROXO+"Essa casa possui area de lazer? (Sim/Não)");
+            boolean lazer = linha.nextLine().equalsIgnoreCase("sim");
+
+            System.out.println("Essa casa possui garagem? (Sim/Não)"+RESET);
+            boolean garagem = linha.nextLine().equalsIgnoreCase("sim");
+
+            ((Casa)imovelBusca).setGaragem(garagem);
+            ((Casa)imovelBusca).setAreaDeLazer(lazer);
+            return imovelBusca;
+
+        } else if (imovelBusca.getTipoImovel().equals(TipoImovel.APARTAMENTO)) {
+            System.out.println(ROXO+"Neste apartamento permite animais? (Sim/Não)");
+            boolean animais = linha.nextLine().equalsIgnoreCase("sim");
+
+            System.out.println("Neste apartamento há salão de festa? (Sim/Não)");
+            boolean festa = linha.nextLine().equalsIgnoreCase("sim");
+
+
+
+            ((Apartamento)imovelBusca).setPermiteAnimais(animais);
+            ((Apartamento)imovelBusca).setSalaoDeFesta(festa);
+           // ((Apartamento)imovelBusca).setNumeroDeVagas(vagas);
+            return imovelBusca;
+
         }else{
             throw new DadoInvalidoException();
         }
