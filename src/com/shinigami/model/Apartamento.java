@@ -5,8 +5,8 @@ public class Apartamento extends Imovel {
     private int numeroDeVagas;
 
 
-    public Apartamento(int idImovel, Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel, boolean permiteAnimais, boolean salaoDeFesta, int numeroDeVagas) {
-        super(idImovel, endereco, qntdQuartos, qntdBanheiros, valorMensal, condominio, tipoImovel);
+    public Apartamento(Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel, boolean permiteAnimais, boolean salaoDeFesta, int numeroDeVagas) {
+        super(endereco, qntdQuartos, qntdBanheiros, valorMensal, condominio, tipoImovel);
         this.permiteAnimais = permiteAnimais;
         this.salaoDeFesta = salaoDeFesta;
         this.numeroDeVagas = numeroDeVagas;

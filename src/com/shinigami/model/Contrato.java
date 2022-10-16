@@ -8,7 +8,6 @@ public class Contrato implements Impressao {
     private LocalDate dataEntrada,dataVencimento;
     private Imovel imovel;
     private int idContrato;
-
     private boolean ativo;
 
     public Contrato() {

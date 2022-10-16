@@ -1,7 +1,6 @@
 package model.com.shinigami.repository;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,7 +164,7 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
                 contrato.setLocatario(clienteRepository.buscarCliente(res.getInt("id_locatario")));
                 contrato.setLocador(clienteRepository.buscarCliente(res.getInt("id_locador")));
                 contrato.setImovel(imovelRepository.buscarImovel(res.getInt("id_imovel")));
-                contrato.setAtivo(res.getBoolean("ativo"));
+                contrato.setAtivo(converteCharPraBoolean(res.getString("ativo")));
                 contratos.add(contrato);
             }
             return contratos;
@@ -206,7 +205,7 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             contrato.setLocatario(clienteRepository.buscarCliente(res.getInt("id_locatario")));
             contrato.setLocador(clienteRepository.buscarCliente(res.getInt("id_locador")));
             contrato.setImovel(imovelRepository.buscarImovel(res.getInt("id_imovel")));
-            contrato.setAtivo(res.getBoolean("ativo"));
+            contrato.setAtivo(converteCharPraBoolean(res.getString("ativo")));
 
             return contrato;
 
@@ -222,4 +221,11 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             }
         }
     }
+    private boolean converteCharPraBoolean(String valor){
+        if(valor.toUpperCase().equals("T")){
+            return true;
+        }
+        return false;
+    }
+
 }

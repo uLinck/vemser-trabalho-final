@@ -4,6 +4,7 @@ public class Cliente implements Impressao {
 
     private String nome, cpf, email, telefone;
     private int idCliente;
+    private boolean ativo;
     private TipoCliente tipoCliente;
     public Cliente() {
     }
@@ -15,6 +16,14 @@ public class Cliente implements Impressao {
         this.cpf = cpf;
         this.email = email;
         this.tipoCliente = tipoCliente;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public int getIdCliente() {

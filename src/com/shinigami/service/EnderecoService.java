@@ -7,16 +7,22 @@ import model.com.shinigami.repository.EnderecoRepository;
 
 import java.util.List;
 
-public class EnderecoService {
+public class EnderecoService implements Service<Endereco> {
     private EnderecoRepository enderecoRepository;
 
     public EnderecoService(){
         enderecoRepository = new EnderecoRepository();
     }
 
-    public boolean adicionarEndereco(Endereco endereco) throws DadoInvalidoException{
+    @Override
+    public boolean adicionar(Endereco endereco) throws DadoInvalidoException{
         try {
-            validaEndereco(endereco);
+            validaCidade(endereco.getCidade());
+            validaCep(endereco.getCep());
+            validaEstado(endereco.getEstado());
+            validaPais(endereco.getPais());
+            validaNumero(endereco.getNumero());
+            validaRua(endereco.getRua());
             Endereco enderecoAdicionado = enderecoRepository.adicionar(formataEndereco(endereco));
             System.out.println("Endereco adicinado com sucesso! " + enderecoAdicionado);
             return true;
@@ -29,8 +35,8 @@ public class EnderecoService {
             return false;
         }
     }
-
-    public boolean removerEndereco(Integer id){
+    @Override
+    public boolean remover(Integer id) throws DadoInvalidoException{
         try{
             boolean conseguiuRemover = enderecoRepository.remover(id);
             System.out.println("endereco removido? " + conseguiuRemover + "| com id=" + id);
@@ -40,8 +46,8 @@ public class EnderecoService {
             return false;
         }
     }
-
-    public void editarEndereco(Integer id, Endereco endereco){
+    @Override
+    public void editar(Integer id, Endereco endereco) throws DadoInvalidoException{
         try {
             boolean conseguiuEditar = enderecoRepository.editar(id, endereco);
             System.out.println("Endereco editado? " + conseguiuEditar + "| com id=" + id);
@@ -49,8 +55,8 @@ public class EnderecoService {
             e.printStackTrace();
         }
     }
-
-    public void listarEndereco() {
+    @Override
+    public void listar() {
         try {
             List<Endereco> listar = enderecoRepository.listar();
             listar.forEach(endereco ->{
@@ -69,24 +75,48 @@ public class EnderecoService {
         }
     }
 
-    public boolean validaEndereco(Endereco endereco) throws DadoInvalidoException {
-        if(endereco.getRua().equals(null)){
-            throw new DadoInvalidoException();
-        } else if(endereco.getCidade().equals(null)){
-            throw new DadoInvalidoException();
-        } else if(endereco.getEstado().equals(null)){
-            throw new DadoInvalidoException();
-        } else if(endereco.getPais().equals(null)){
-            throw new DadoInvalidoException();
-        } else if((Integer)endereco.getNumero() != null){
-            throw new DadoInvalidoException();
-        } else if(endereco.getCep().equals(null) || endereco.getCep().length() != 9){
-            throw new DadoInvalidoException();
+    private boolean validaRua(String  rua) throws DadoInvalidoException{
+        if(rua.isBlank()) {
+            throw new DadoInvalidoException("Rua Invalida");
         }
         return true;
     }
 
-    public Endereco formataEndereco(Endereco endereco){
+    private boolean validaNumero(int numero) throws DadoInvalidoException{
+        if(numero < 0) {
+            throw new DadoInvalidoException("Numero Invalido");
+        }
+        return true;
+    }
+
+    private boolean validaCep(String cep) throws DadoInvalidoException{
+        if(cep.trim().length()!= 9){
+            throw new DadoInvalidoException("Cep Invalido!");
+        }
+        return true;
+    }
+
+
+    private boolean validaCidade(String cidade) throws DadoInvalidoException{
+        if(cidade.isBlank()){
+            throw new DadoInvalidoException("Cidade Invalida!");
+        }
+        return true;
+    }
+    private boolean validaEstado(String estado) throws DadoInvalidoException{
+        if(estado.isBlank()){
+            throw new DadoInvalidoException("Estado Invalido!");
+        }
+        return true;
+    }
+    private boolean validaPais(String pais) throws DadoInvalidoException{
+        if(pais.isBlank()){
+            throw new DadoInvalidoException("Pais Invalido!");
+        }
+        return true;
+    }
+
+    private Endereco formataEndereco(Endereco endereco){
         Endereco enderecoFormatado = new Endereco();
 
         enderecoFormatado.setIdEndereco(endereco.getIdEndereco());

@@ -67,11 +67,12 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            String sql = "DELETE FROM CLIENTE WHERE id_cliente = ?";
+            String sql = "UPDATE CLIENTE SET ativo = ? WHERE id_imovel = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, id);
+            stmt.setString(1, "F");
+            stmt.setInt(2, id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
@@ -142,7 +143,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM CLIENTE";
+            String sql = "SELECT * FROM CLIENTE WHERE ATIVO LIKE 'T'";
 
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);

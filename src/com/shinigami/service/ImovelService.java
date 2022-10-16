@@ -2,24 +2,26 @@ package model.com.shinigami.service;
 
 import model.com.shinigami.exceptions.BancoDeDadosException;
 import model.com.shinigami.exceptions.DadoInvalidoException;
-import model.com.shinigami.model.Apartamento;
 import model.com.shinigami.model.Imovel;
-import model.com.shinigami.model.TipoImovel;
 import model.com.shinigami.repository.ImovelRepository;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ImovelService {
+public class ImovelService implements Service<Imovel>{
     private ImovelRepository imovelRepository ;
 
     public ImovelService(){
         imovelRepository = new ImovelRepository();
     }
 
-    public boolean adicionarImovel(Imovel imovel) throws BancoDeDadosException{
+    @Override
+    public boolean adicionar(Imovel imovel) throws DadoInvalidoException{
         try{
-            validaValorImovel(imovel);
+            validaQntd(imovel.getQntdQuartos());
+            validaQntd(imovel.getQntdBanheiros());
+            validaValorImovel(imovel.getValorMensal());
+            validaValorCondominio(imovel.getCondominio());
             Imovel adicionaImovel = imovelRepository.adicionar(imovel);
             System.out.println("Imovel adicinado com sucesso! " + adicionaImovel);
             return true;
@@ -27,10 +29,13 @@ public class ImovelService {
         }catch (BancoDeDadosException e){
             e.printStackTrace();
             return false;
+        }catch (DadoInvalidoException e){
+            System.out.println(e.getMessage());
+            return false;
         }
     }
-
-    public boolean removerImovel(Integer id) {
+    @Override
+    public boolean remover(Integer id) {
 
         try{
             boolean conseguiuRemover = imovelRepository.remover(id);
@@ -42,7 +47,9 @@ public class ImovelService {
         }
 
     }
-    public void editarImovel(Integer id, Imovel imovel) {
+
+    @Override
+    public void editar(Integer id, Imovel imovel) {
 
         try {
             boolean conseguiuEditar = imovelRepository.editar(id, imovel);
@@ -52,7 +59,8 @@ public class ImovelService {
         }
     }
 
-    public void listarImovel() {
+    @Override
+    public void listar() {
         try {
             List<Imovel> listar = imovelRepository.listar();
             listar.forEach(imovel ->{
@@ -72,39 +80,25 @@ public class ImovelService {
         }
     }
 
-    public boolean validaImovel(Imovel imovel) throws DadoInvalidoException {
-
-         if ((Integer)imovel.getDono().getIdCliente() != null) {
-            throw new DadoInvalidoException();
-        } else if(imovel.getTipoImovel() != null) {
-            throw new DadoInvalidoException();
-        } else if((Integer)imovel.getQntdQuartos() != null) {
-            throw  new DadoInvalidoException();
-        } else if((Integer)imovel.getQntdBanheiros() != null) {
-            throw new DadoInvalidoException();
-        } else if(imovel.getEndereco() != null) {
-            throw new DadoInvalidoException();
-        } else if((Double)imovel.getValorMensal() != null) {
-            throw new DadoInvalidoException();
-        } else if((Double)imovel.getCondominio() != null) {
-            throw new DadoInvalidoException();
-        }
-
-        if(imovel.getTipoImovel() == TipoImovel.APARTAMENTO) {
-           if((Boolean)((Apartamento)imovel).isPermiteAnimais() != null) {
-               throw new DadoInvalidoException(); // blow up
-           }
+    private boolean validaQntd(int qnt) throws DadoInvalidoException{
+        if(qnt < 0){
+            throw new DadoInvalidoException("Quantidade Invalida");
         }
         return true;
     }
-    public boolean validaValorImovel(Imovel imovel){
-       if(imovel.getValorMensal() <= 0) {
-           return false;
-        } else if(imovel.getValorMensal() + imovel.getCondominio() <= 0){
-            return false;
-        } else if(imovel.getCondominio() < 0) {
-           return false;
-       }
+
+    private boolean validaValorCondominio(double valor) throws DadoInvalidoException{
+        if(valor < 0){
+            throw new DadoInvalidoException("Valor Condominio Invalido");
+        }
+        return true;
+    }
+
+
+    public boolean validaValorImovel(double valor) throws DadoInvalidoException{
+       if(valor <= 0) {
+           throw new DadoInvalidoException("Valor do aluguel não pode ser menor ou igual a zero!");
+        }
         return true;
     }
 }

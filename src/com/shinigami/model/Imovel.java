@@ -17,7 +17,7 @@ public abstract class Imovel implements Impressao {
     public Imovel() {}
 
 
-    public Imovel(int idImovel,Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel) {
+    public Imovel(Endereco endereco, int qntdQuartos, int qntdBanheiros, double valorMensal, double condominio, TipoImovel tipoImovel) {
         this.endereco = endereco;
         this.qntdQuartos = qntdQuartos;
         this.qntdBanheiros = qntdBanheiros;

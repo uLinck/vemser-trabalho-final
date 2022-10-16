@@ -7,15 +7,15 @@ import model.com.shinigami.repository.ClienteRepository;
 
 import java.util.List;
 
-public class ClienteService {
+public class ClienteService implements Service<Cliente>{
     private ClienteRepository clienteRepository;
 
     public ClienteService() {
         clienteRepository = new ClienteRepository();
     }
 
-    // criação de um objeto
-    public boolean adicionarCliente(Cliente pessoa) {
+    @Override
+    public boolean adicionar(Cliente pessoa)throws DadoInvalidoException {
         try {
 
             validaCpf(pessoa);
@@ -36,8 +36,8 @@ public class ClienteService {
         }
     }
 
-    // remoção
-    public boolean removerCliente(Integer id) {
+    @Override
+    public boolean remover(Integer id) throws DadoInvalidoException{
         try {
             boolean conseguiuRemover = clienteRepository.remover(id);
             System.out.println("cliente removido? " + conseguiuRemover + "| com id=" + id);
@@ -48,8 +48,8 @@ public class ClienteService {
         }
     }
 
-    // atualização de um objeto
-    public void editarPessoa(Integer id, Cliente pessoa) {
+    @Override
+    public void editar(Integer id, Cliente pessoa) throws DadoInvalidoException {
         try {
             boolean conseguiuEditar = clienteRepository.editar(id, pessoa);
             System.out.println("cliente editado? " + conseguiuEditar + "| com id=" + id);
@@ -58,8 +58,8 @@ public class ClienteService {
         }
     }
 
-    // leitura
-    public void listarCliente() {
+    @Override
+    public void listar() {
         try {
             List<Cliente> listar = clienteRepository.listar();
             listar.forEach(cliente ->{

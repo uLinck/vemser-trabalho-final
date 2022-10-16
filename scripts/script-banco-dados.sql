@@ -53,7 +53,7 @@ CREATE TABLE CONTRATO(
  data_vencimento DATE NOT NULL,
  id_locatario NUMBER NOT NULL,
  id_locador NUMBER NOT NULL,
- id_imovel      NUMBER NOT NULL,
+ id_imovel NUMBER NOT NULL,
  ativo CHAR(1) NOT NULL,
  PRIMARY KEY (id_contrato),
  CONSTRAINT FK_CONTRATO_IMOVEL
