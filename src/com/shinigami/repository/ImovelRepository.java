@@ -131,7 +131,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                 //"(id_imovel, valor_mensal, condominio, alugado, qnt_quartos,
                 // qntd_banheiros, tipo_imovel, id_endereco, id_cliente, permite_animais, salao_de_festas)\n
 
-                sql.append("UPDATE APARTAMENTO SET");
+                sql.append("UPDATE IMOVEL SET");
                 sql.append(" valor_mensal = ?,");
                 sql.append(" condominio = ?,");
                 sql.append(" alugado = ?,");
@@ -249,6 +249,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
         try {
             con = ConexaoBancoDeDados.getConnection();
             EnderecoRepository enderecoRepository = new EnderecoRepository();
+            ClienteRepository clienteRepository = new ClienteRepository();
 
             String sql = "SELECT * FROM IMOVEL WHERE id_imovel = ?";
 
@@ -258,7 +259,8 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
 
             ResultSet res = stmt.executeQuery();
 
-            if (res.next()) {
+
+            if(res.next()) {
                 if (res.getInt("tipo_imovel") == 1) {
                     Imovel imovel = new Apartamento();
 
@@ -268,15 +270,17 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                     imovel.setAlugado(res.getBoolean("alugado"));
                     imovel.setQntdQuartos(res.getInt("qntd_quartos"));
                     imovel.setQntdBanheiros(res.getInt("qntd_banheiros"));
+                    imovel.setTipoImovel(TipoImovel.APARTAMENTO);
                     ((Apartamento) imovel).setPermiteAnimais(converteCharPraBoolean(res.getString("permite_animais")));
                     ((Apartamento) imovel).setSalaoDeFesta(converteCharPraBoolean(res.getString("salao_de_festas")));
                     ((Apartamento) imovel).setNumeroDeVagas(res.getInt("numero_de_vagas"));
                     imovel.setEndereco(enderecoRepository.buscarEndereco(res.getInt("id_endereco")));
-
+                    imovel.setDono(clienteRepository.buscarCliente(res.getInt("id_cliente")));
                     return imovel;
 
                 } else {
                     Imovel imovel = new Casa();
+                    System.out.println("teste casa");
 
                     imovel.setIdImovel(res.getInt("id_imovel"));
                     imovel.setValorMensal(res.getDouble("valor_mensal"));
@@ -284,14 +288,17 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                     imovel.setAlugado(res.getBoolean("alugado"));
                     imovel.setQntdQuartos(res.getInt("qntd_quartos"));
                     imovel.setQntdBanheiros(res.getInt("qntd_banheiros"));
+                    imovel.setTipoImovel(TipoImovel.CASA);
                     ((Casa) imovel).setAreaDeLazer(converteCharPraBoolean(res.getString("area_de_lazer")));
                     ((Casa) imovel).setGaragem(converteCharPraBoolean(res.getString("garagem")));
                     imovel.setEndereco(enderecoRepository.buscarEndereco(res.getInt("id_endereco")));
+                    imovel.setDono(clienteRepository.buscarCliente(res.getInt("id_cliente")));
 
                     return imovel;
+
                 }
-            }else {
-                throw new BancoDeDadosException("Imovel Não Encontrado!!");
+            }else{
+                throw new BancoDeDadosException("Nenhum dado encontrado!!");
             }
         }catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
