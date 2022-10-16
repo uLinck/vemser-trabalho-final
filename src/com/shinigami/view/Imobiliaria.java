@@ -423,7 +423,7 @@ public class Imobiliaria {
 
             ((Apartamento)imovelBusca).setPermiteAnimais(animais);
             ((Apartamento)imovelBusca).setSalaoDeFesta(festa);
-            
+
             return imovelBusca;
 
         }else{
