@@ -122,7 +122,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setInt(8, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("editaEndereco.res=" + res);
             return res > 0;
 
         } catch (SQLException e){

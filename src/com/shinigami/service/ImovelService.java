@@ -53,7 +53,6 @@ public class ImovelService implements Service<Imovel>{
 
         try {
             boolean conseguiuEditar = imovelRepository.editar(id, imovel);
-            System.out.println("Imovel editado? " + conseguiuEditar + "| com id= " + id);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -63,12 +62,13 @@ public class ImovelService implements Service<Imovel>{
     public void listar() {
         try {
             List<Imovel> listar = imovelRepository.listar();
+            System.out.println(listar.size());
             listar.forEach(imovel ->{
                 System.out.println("id: " + imovel.getIdImovel() + "| Dono: " + imovel.getDono().getNome() + "| Alugado: " + imovel.isAlugado());
             });
 
         }catch (BancoDeDadosException e) {
-            e.printStackTrace();
+            System.out.println(e.getCause());
         }
     }
 

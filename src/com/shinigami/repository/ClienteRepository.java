@@ -43,8 +43,8 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             stmt.setString(3, cliente.getCpf());
             stmt.setString(4, cliente.getTelefone());
             stmt.setString(5, cliente.getEmail());
-            stmt.setInt(6,cliente.getTipoCliente().ordinal());
-            stmt.setString(7,"T");
+            stmt.setInt(6, cliente.getTipoCliente().ordinal());
+            stmt.setString(7, "T");
 
             int res = stmt.executeUpdate();
             return cliente;
@@ -97,16 +97,15 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE CLIENTE SET ");
-            sql.append(" cpf = ?,");
-            sql.append(" nome = ?,");
-            sql.append(" telefone = ?,");
-            sql.append(" email = ?,");
-            sql.append(" tipo_cliente = ?");
-            sql.append(" WHERE id_cliente = ?");
+            String sql = "UPDATE CLIENTE SET " +
+                    " cpf = ?," +
+                    " nome = ?," +
+                    " telefone = ?," +
+                    " email = ?," +
+                    " tipo_cliente = ?" +
+                    " WHERE id_cliente = ?";
 
-            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
@@ -152,7 +151,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
                 cliente.setTelefone(res.getString("telefone"));
                 cliente.setCpf(res.getString("cpf"));
                 cliente.setEmail(res.getString("email"));
-                cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
+                cliente.setTipoCliente(res.getInt("tipo_cliente") == 0 ? TipoCliente.LOCADOR : TipoCliente.LOCATARIO);
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
@@ -169,7 +168,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         return clientes;
     }
 
-    public Cliente buscarCliente(int id) throws BancoDeDadosException{
+    public Cliente buscarCliente(int id) throws BancoDeDadosException {
         Cliente cliente = new Cliente();
         Connection con = null;
         try {
@@ -180,19 +179,19 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
-
+            System.out.println(stmt);
             ResultSet res = stmt.executeQuery();
-            if(res.next()) {
+            if (res.next()) {
                 cliente.setIdCliente(res.getInt("id_cliente"));
                 cliente.setNome(res.getString("nome"));
                 cliente.setTelefone(res.getString("telefone"));
                 cliente.setCpf(res.getString("cpf"));
                 cliente.setEmail(res.getString("email"));
-                cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
+                cliente.setTipoCliente(res.getInt("tipo_cliente") == 0 ? TipoCliente.LOCADOR : TipoCliente.LOCATARIO);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
-        }finally {
+        } finally {
             try {
                 if (con != null) {
                     con.close();
@@ -204,7 +203,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         return cliente;
     }
 
-    public Cliente buscarCliente(String txt) throws BancoDeDadosException{
+    public Cliente buscarCliente(String txt) throws BancoDeDadosException {
         Cliente cliente = new Cliente();
         Connection con = null;
         try {
@@ -221,17 +220,17 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
 
 
             ResultSet res = stmt.executeQuery();
-            if(res.next()){
+            if (res.next()) {
                 cliente.setIdCliente(res.getInt("id_cliente"));
                 cliente.setNome(res.getString("nome"));
                 cliente.setTelefone(res.getString("telefone"));
                 cliente.setCpf(res.getString("cpf"));
                 cliente.setEmail(res.getString("email"));
-                cliente.setTipoCliente(TipoCliente.values()[res.getInt("tipo_cliente")]);
+                cliente.setTipoCliente(res.getInt("tipo_cliente") == 0 ? TipoCliente.LOCADOR : TipoCliente.LOCATARIO);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
-        }finally {
+        } finally {
             try {
                 if (con != null) {
                     con.close();

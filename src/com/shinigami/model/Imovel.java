@@ -117,7 +117,7 @@ public abstract class Imovel implements Impressao {
                 "Valor Mensal Aluguel:" + valorMensal +" - " +
                 "Taxa do Condominio: " + condominio +" - " +
                 "Alugado: " + alugado +" - " +
-                "Tipo do Imovel=" + tipoImovel+ " - "+"Dono: "+dono.getNome());
+                "Tipo do Imovel: " + tipoImovel+ " - "+"Dono: "+dono.getNome());
     }
 
 }

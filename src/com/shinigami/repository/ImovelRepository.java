@@ -59,18 +59,17 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                 if(imovel.getTipoImovel() == TipoImovel.APARTAMENTO) {
                     stmt.setString(10, ((Apartamento) imovel).isPermiteAnimais() ? "T" : "F");
                     stmt.setString(11, ((Apartamento) imovel).isSalaoDeFesta() ? "T" : "F");
-                    stmt.setString(12,null);
-                    stmt.setString(13,null);
+                    stmt.setString(12,"F");
+                    stmt.setString(13,"F");
                 }else {
-                    stmt.setString(10,null);
-                    stmt.setString(11,null);
+                    stmt.setString(10,"F");
+                    stmt.setString(11,"F");
                     stmt.setString(12, ((Casa)imovel).isAreaDeLazer() ? "T" : "F");
                     stmt.setString(13, ((Casa)imovel).isGaragem() ? "T" : "F");
                 }
                 stmt.setString(14, imovel.isAtivo() ? "T" : "F");
 
                 int res = stmt.executeUpdate();
-                System.out.println("adicionarCliente.res=" + res);
                 return imovel;
 
 
@@ -102,7 +101,6 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerImovelPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -164,7 +162,6 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
 
                 //Executa-se a consulta
                 int res = stmt.executeUpdate();
-                System.out.println("editarImovel.res=" + res);
                 return res > 0;
 
         } catch (SQLException e) {
@@ -187,21 +184,17 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
-            Statement stmt = con.createStatement();
-
             String sql = "SELECT * FROM IMOVEL WHERE ATIVO LIKE 'T'";
-
+            Statement stmt = con.createStatement();
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
-
             while (res.next()) {
-                if( res.getInt("tipo_imovel") == 0){
+                if( res.getInt("tipo_imovel") == 1){
                     Imovel imovel = new Apartamento();
-
                     imovel.setIdImovel(res.getInt("id_imovel"));
                     imovel.setValorMensal(res.getDouble("valor_mensal"));
                     imovel.setCondominio(res.getDouble("condominio"));
-                    imovel.setAlugado(res.getBoolean("alugado"));
+                    imovel.setAlugado(converteCharPraBoolean(res.getString("alugado")));
                     imovel.setQntdQuartos(res.getInt("qntd_quartos"));
                     imovel.setQntdBanheiros(res.getInt("qntd_banheiros"));
                     ((Apartamento)imovel).setPermiteAnimais(converteCharPraBoolean(res.getString("permite_animais")));
@@ -213,15 +206,14 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
 
                 } else{
                     Imovel imovel = new Casa();
-
                     imovel.setIdImovel(res.getInt("id_imovel"));
                     imovel.setValorMensal(res.getDouble("valor_mensal"));
                     imovel.setCondominio(res.getDouble("condominio"));
-                    imovel.setAlugado(res.getBoolean("alugado"));
+                    imovel.setAlugado(converteCharPraBoolean(res.getString("alugado")));
                     imovel.setQntdQuartos(res.getInt("qntd_quartos"));
                     imovel.setQntdBanheiros(res.getInt("qntd_banheiros"));
-                    ((Casa)imovel).setAreaDeLazer(res.getBoolean("area_de_lazer"));
-                    ((Casa)imovel).setGaragem(res.getBoolean("garagem"));
+                    ((Casa)imovel).setAreaDeLazer(converteCharPraBoolean(res.getString("area_de_lazer")));
+                    ((Casa)imovel).setGaragem(converteCharPraBoolean(res.getString("garagem")));
                     imovel.setDono(clienteRepository.buscarCliente(res.getInt("id_cliente")));
 
                     imoveis.add(imovel);
@@ -235,7 +227,7 @@ public class ImovelRepository implements Repositorio<Integer, Imovel> {
                     con.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(e.getCause());
             }
         }
         return imoveis;

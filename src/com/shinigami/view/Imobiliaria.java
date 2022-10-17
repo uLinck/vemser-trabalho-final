@@ -72,8 +72,10 @@ public class Imobiliaria {
                                 System.out.println(AZUL+"Qual cliente você deseja buscar informações ? id/nome/telefone/cpf/email"+RESET);
                                 String buscar = linha.nextLine();
                                 Cliente cliente = serviceCliente.buscarCliente(buscar);
-                                if(cliente != null){
+                                if(cliente == null){
                                     System.out.println(VERMELHO+"Cliente não encontrado!"+RESET);
+                                }else{
+                                    cliente.imprimir();
                                 }
 
                             }default -> {
@@ -221,6 +223,7 @@ public class Imobiliaria {
         System.out.println(VERDE+"3- Menu Contratos"+RESET);
         System.out.println(VERMELHO+"9- SAIR"+RESET);
         int opcao = linha.nextInt();
+        linha.nextLine();
         return opcao;
 
     }
