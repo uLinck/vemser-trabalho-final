@@ -198,7 +198,7 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
 
             stmt.setInt(1, id);
 
-            ResultSet res = stmt.executeQuery(sql);
+            ResultSet res = stmt.executeQuery();
             res.next();
             Contrato contrato = new Contrato();
             contrato.setIdContrato(res.getInt("id_contrato"));

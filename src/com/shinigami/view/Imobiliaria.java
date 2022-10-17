@@ -64,7 +64,7 @@ public class Imobiliaria {
                                 System.out.print(AZUL+"\nTem certeza que deseja remover o cliente: 'Sim' ou 'Nao' "+opcao+"\n"+RESET);
                                 serviceCliente.buscarCliente(busca).imprimir();
                                 if(linha.nextLine().toLowerCase().equals("sim")){
-                                    serviceCliente.remover(opcao);
+                                    serviceCliente.remover(serviceCliente.buscarCliente(busca).getIdCliente());
                                     System.out.println(VERDE+"Deletado com Sucesso!"+RESET);
                                 }else {
                                     System.out.println(VERMELHO+"Remover Cancelado!"+RESET);
