@@ -21,8 +21,7 @@ public class ContratoService implements Service<Contrato>{
     public boolean adicionar(Contrato contrato)throws DadoInvalidoException {
         try {
             validaDataVencimento(contrato.getDataEntrada(),contrato.getDataVencimento());
-            Contrato contratoAdicionado = contratoRepository.adicionar(contrato);
-            System.out.println("cliente adicinada com sucesso! " + contratoAdicionado);
+            contratoRepository.adicionar(contrato);
             return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
@@ -40,7 +39,6 @@ public class ContratoService implements Service<Contrato>{
     public boolean remover(Integer id) throws DadoInvalidoException{
         try {
             boolean conseguiuRemover = contratoRepository.remover(id);
-            System.out.println("contrato removido? " + conseguiuRemover + "| com id=" + id);
             return conseguiuRemover;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
@@ -51,8 +49,7 @@ public class ContratoService implements Service<Contrato>{
     @Override
     public void editar(Integer id, Contrato contrato) throws DadoInvalidoException {
         try {
-            boolean conseguiuEditar = contratoRepository.editar(id, contrato);
-            System.out.println("contrato editado? " + conseguiuEditar + "| com id=" + id);
+            contratoRepository.editar(id, contrato);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -78,15 +75,10 @@ public class ContratoService implements Service<Contrato>{
         }
     }
 
-    private boolean validaDataVencimento(LocalDate dataEntrada, LocalDate dataVencimento) throws DadoInvalidoException{
+    public boolean validaDataVencimento(LocalDate dataEntrada, LocalDate dataVencimento) throws DadoInvalidoException{
         if(dataVencimento.isBefore(dataEntrada)){
             throw new DadoInvalidoException("Data Vencimento Invalida!");
         }
         return true;
     }
-
-
-
-
-
 }

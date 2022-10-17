@@ -46,7 +46,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             stmt.setInt(6, cliente.getTipoCliente().ordinal());
             stmt.setString(7, "T");
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
             return cliente;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());

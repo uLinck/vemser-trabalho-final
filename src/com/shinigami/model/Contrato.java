@@ -91,7 +91,7 @@ public class Contrato implements Impressao {
 
     @Override
     public void imprimir() {
-        System.out.print("" +
+        System.out.print("\n- Informações do contrato selecionado -\n" +
                 "Numero Do Contrato: " + idContrato + " \n " +
                 "Locador: " + "Nome Locador: "+ locador.getNome() +
                 " - CPF Locador: "+ locador.getCpf() +" \n " +

@@ -39,7 +39,6 @@ public class ClienteService implements Service<Cliente>{
     public boolean remover(Integer id) throws DadoInvalidoException{
         try {
             boolean conseguiuRemover = clienteRepository.remover(id);
-            System.out.println("cliente removido? " + conseguiuRemover + "| com id=" + id);
             return conseguiuRemover;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
@@ -51,7 +50,6 @@ public class ClienteService implements Service<Cliente>{
     public void editar(Integer id, Cliente pessoa) throws DadoInvalidoException {
         try {
             boolean conseguiuEditar = clienteRepository.editar(id, pessoa);
-            System.out.println("cliente editado? " + conseguiuEditar + "| com id=" + id);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -80,20 +78,20 @@ public class ClienteService implements Service<Cliente>{
         }
     }
 
-    private boolean validaCpf(Cliente cliente) throws DadoInvalidoException {
+    public boolean validaCpf(Cliente cliente) throws DadoInvalidoException {
         if (cliente.getCpf().length() != 11) {
             throw new DadoInvalidoException("CPF Invalido!");
         }
         return true;
     }
-    private boolean validaNome(Cliente cliente) throws DadoInvalidoException{
+    public boolean validaNome(Cliente cliente) throws DadoInvalidoException{
         if(cliente.getNome().equals(null) || cliente.getNome().isBlank()){
             throw new DadoInvalidoException("Nome Invalido!");
         }
         return true;
     }
 
-    private boolean validaEmail(Cliente cliente) throws DadoInvalidoException{
+    public boolean validaEmail(Cliente cliente) throws DadoInvalidoException{
         if(cliente.getEmail().isBlank() || !cliente.getEmail().contains("@")){
             throw new DadoInvalidoException("Email invalido!");
         }

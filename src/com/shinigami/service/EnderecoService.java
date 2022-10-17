@@ -23,7 +23,7 @@ public class EnderecoService implements Service<Endereco> {
             validaPais(endereco.getPais());
             validaNumero(endereco.getNumero());
             validaRua(endereco.getRua());
-            Endereco enderecoAdicionado = enderecoRepository.adicionar(formataEndereco(endereco));
+            enderecoRepository.adicionar(formataEndereco(endereco));
             System.out.println("Endereco adicinado com sucesso!");
             return true;
 
@@ -39,7 +39,6 @@ public class EnderecoService implements Service<Endereco> {
     public boolean remover(Integer id) throws DadoInvalidoException{
         try{
             boolean conseguiuRemover = enderecoRepository.remover(id);
-            System.out.println("endereco removido? " + conseguiuRemover + "| com id=" + id);
             return conseguiuRemover;
         } catch (BancoDeDadosException e){
             e.printStackTrace();
@@ -50,7 +49,6 @@ public class EnderecoService implements Service<Endereco> {
     public void editar(Integer id, Endereco endereco) throws DadoInvalidoException{
         try {
             boolean conseguiuEditar = enderecoRepository.editar(id, endereco);
-            System.out.println("Endereco editado? " + conseguiuEditar + "| com id=" + id);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -67,29 +65,21 @@ public class EnderecoService implements Service<Endereco> {
         }
     }
 
-    public Endereco buscarEndereco(Integer id) throws BancoDeDadosException{
-        try {
-            return enderecoRepository.buscarEndereco(id);
-        }catch (BancoDeDadosException e){
-            throw new BancoDeDadosException(e.getCause());
-        }
-    }
-
-    private boolean validaRua(String  rua) throws DadoInvalidoException{
+    public boolean validaRua(String  rua) throws DadoInvalidoException{
         if(rua.isBlank()) {
             throw new DadoInvalidoException("Rua Invalida");
         }
         return true;
     }
 
-    private boolean validaNumero(int numero) throws DadoInvalidoException{
+    public boolean validaNumero(int numero) throws DadoInvalidoException{
         if(numero < 0) {
             throw new DadoInvalidoException("Numero Invalido");
         }
         return true;
     }
 
-    private boolean validaCep(String cep) throws DadoInvalidoException{
+    public boolean validaCep(String cep) throws DadoInvalidoException{
         if(cep.trim().length()!= 9){
             throw new DadoInvalidoException("Cep Invalido!");
         }
@@ -97,19 +87,19 @@ public class EnderecoService implements Service<Endereco> {
     }
 
 
-    private boolean validaCidade(String cidade) throws DadoInvalidoException{
+    public boolean validaCidade(String cidade) throws DadoInvalidoException{
         if(cidade.isBlank()){
             throw new DadoInvalidoException("Cidade Invalida!");
         }
         return true;
     }
-    private boolean validaEstado(String estado) throws DadoInvalidoException{
+    public boolean validaEstado(String estado) throws DadoInvalidoException{
         if(estado.isBlank()){
             throw new DadoInvalidoException("Estado Invalido!");
         }
         return true;
     }
-    private boolean validaPais(String pais) throws DadoInvalidoException{
+    public boolean validaPais(String pais) throws DadoInvalidoException{
         if(pais.isBlank()){
             throw new DadoInvalidoException("Pais Invalido!");
         }

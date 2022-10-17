@@ -22,8 +22,7 @@ public class ImovelService implements Service<Imovel>{
             validaQntd(imovel.getQntdBanheiros());
             validaValorImovel(imovel.getValorMensal());
             validaValorCondominio(imovel.getCondominio());
-            Imovel adicionaImovel = imovelRepository.adicionar(imovel);
-            System.out.println("Imovel adicinado com sucesso! " + adicionaImovel);
+            imovelRepository.adicionar(imovel);
             return true;
 
         }catch (BancoDeDadosException e){
@@ -39,7 +38,6 @@ public class ImovelService implements Service<Imovel>{
 
         try{
             boolean conseguiuRemover = imovelRepository.remover(id);
-            System.out.println("Imovel removido? " + conseguiuRemover  + "| com id= " + id);
             return conseguiuRemover;
         } catch (BancoDeDadosException e) {
            e.printStackTrace();
@@ -52,7 +50,7 @@ public class ImovelService implements Service<Imovel>{
     public void editar(Integer id, Imovel imovel) {
 
         try {
-            boolean conseguiuEditar = imovelRepository.editar(id, imovel);
+            imovelRepository.editar(id, imovel);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
@@ -67,7 +65,7 @@ public class ImovelService implements Service<Imovel>{
             });
 
         }catch (BancoDeDadosException e) {
-            System.out.println(e.getCause()+"q");
+            System.out.println(e.getCause());
         }
     }
 
@@ -79,7 +77,7 @@ public class ImovelService implements Service<Imovel>{
             });
 
         }catch (BancoDeDadosException e) {
-            System.out.println(e.getCause()+"q");
+            System.out.println(e.getCause());
         }
     }
 
@@ -87,24 +85,23 @@ public class ImovelService implements Service<Imovel>{
         try {
             return imovelRepository.buscarImovel(id);
         } catch(BancoDeDadosException e) {
-            throw new BancoDeDadosException(e.getCause()+"aaa");
+            throw new BancoDeDadosException(e.getCause());
         }
     }
 
-    private boolean validaQntd(int qnt) throws DadoInvalidoException{
+    public boolean validaQntd(int qnt) throws DadoInvalidoException{
         if(qnt < 0){
             throw new DadoInvalidoException("Quantidade Invalida");
         }
         return true;
     }
 
-    private boolean validaValorCondominio(double valor) throws DadoInvalidoException{
+    public boolean validaValorCondominio(double valor) throws DadoInvalidoException{
         if(valor < 0){
             throw new DadoInvalidoException("Valor Condominio Invalido");
         }
         return true;
     }
-
 
     public boolean validaValorImovel(double valor) throws DadoInvalidoException{
        if(valor <= 0) {

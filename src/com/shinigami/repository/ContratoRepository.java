@@ -7,6 +7,7 @@ import java.util.List;
 import model.com.shinigami.exceptions.BancoDeDadosException;
 import model.com.shinigami.exceptions.DadoInvalidoException;
 import model.com.shinigami.model.Contrato;
+import model.com.shinigami.model.Imovel;
 
 public class ContratoRepository implements Repositorio<Integer, Contrato> {
     @Override
@@ -48,7 +49,6 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             stmt.setString(8, contrato.isAtivo() ? "T" : "F");
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarContrato.res=" + res);
             ImovelRepository imovelRepository = new ImovelRepository();
             contrato.getImovel().setAlugado(true);
             imovelRepository.editar(contrato.getImovel().getIdImovel(),contrato.getImovel());
@@ -73,6 +73,7 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
     @Override
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
+        ImovelRepository imovelRepository = new ImovelRepository();
         try{
             con = ConexaoBancoDeDados.getConnection();
 
@@ -84,6 +85,9 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             stmt.setInt(2, id);
 
             int res = stmt.executeUpdate();
+            Imovel imovel = buscarContrato(id).getImovel();
+            imovel.setAlugado(false);
+            imovelRepository.editar(buscarContrato(id).getImovel().getIdImovel(),imovel);
             return res > 0;
 
         }catch (SQLException e) {
@@ -123,8 +127,6 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             stmt.setInt(5, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("editarContrato.res=" + res);
-
             return res > 0;
 
         } catch (SQLException e) {

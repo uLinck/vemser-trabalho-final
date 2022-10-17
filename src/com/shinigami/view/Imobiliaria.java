@@ -31,7 +31,6 @@ public class Imobiliaria {
         ClienteService serviceCliente = new ClienteService();
         ContratoService contratoService = new ContratoService();
         ImovelService imovelService = new ImovelService();
-        EnderecoService enderecoService = new EnderecoService();
 
         boolean execucao = true;
         while(execucao){
@@ -89,8 +88,9 @@ public class Imobiliaria {
                         opcao = menuImovel();
                         switch (opcao) {
 
-                            case 1 -> {
-                                Imovel imovel = pegarInformacoesImovel(enderecoService);
+                            case 1 -> {//cadastro
+                                Imovel imovel = pegarInformacoesImovel();
+
                                 System.out.println(ROXO+"Qual Cliente é dono do Imovel?"+RESET);
                                 serviceCliente.listar();
                                 System.out.println(ROXO+"Informe o ID:"+RESET);
@@ -100,7 +100,7 @@ public class Imobiliaria {
                                 System.out.println(VERDE+"Imovel cadastrado com Sucesso!"+RESET);
                             }
 
-                            case 2 -> {
+                            case 2 -> {//editar
                                 System.out.println(ROXO+"\nQual imóvel você deseja atualizar?"+RESET);
                                 imovelService.listar();
                                 Integer idImovel = linha.nextInt();
@@ -108,10 +108,10 @@ public class Imobiliaria {
                                 imovelService.editar(idImovel, editaInformacoesImovel(imovelService, idImovel));
                                 System.out.println(VERDE+"Atualizado com Sucesso!"+RESET);
                             }
-                            case 3 -> {
+                            case 3 -> {//listar
                                 imovelService.listar();
                             }
-                            case 4 -> {
+                            case 4 -> {//remover
                                 System.out.println(ROXO+"\nQual imóvel você deseja Remover? informe o ID"+RESET);
                                 imovelService.listar();
                                 opcao = linha.nextInt();
@@ -125,7 +125,7 @@ public class Imobiliaria {
 
                                 }
                             }
-                            case 5 -> {
+                            case 5 -> {//buscar
                                 System.out.println(ROXO+"Informe o ID do IMOVEL"+RESET);
                                 imovelService.listar();
                                 opcao = linha.nextInt();
@@ -142,11 +142,11 @@ public class Imobiliaria {
                         opcao = menuContrato();
 
                         switch (opcao){
-                            case 1 -> {
+                            case 1 -> {//cadastro
                                 contratoService.adicionar(pegarInformacoesContrato(serviceCliente,imovelService));
                                 System.out.println(VERDE+"Contrato criado com sucesso!"+RESET);
                             }
-                            case 2 -> {
+                            case 2 -> {//editar
                                 System.out.println(VERDE+"\nQual contrato você deseja atualizar?"+RESET);
                                 contratoService.listar();
                                 opcao = linha.nextInt();
@@ -155,16 +155,16 @@ public class Imobiliaria {
                                 contratoService.editar(opcao, pegarInformacoesContrato(serviceCliente,imovelService));
                                 System.out.println(VERDE+"Atualizado com Sucesso!"+RESET);
                             }
-                            case 3 -> {
+                            case 3 -> {//listar
                                 contratoService.listar();
                             }
-                            case 4 -> {
+                            case 4 -> {//remover
                                 System.out.println(VERDE+"\nQual contrato você deseja Remover? informe o ID"+RESET);
                                 contratoService.listar();
                                 opcao = linha.nextInt();
                                 linha.nextLine();
-                                System.out.print(VERDE+"\nTem certeza que deseja remover o Contrato('Sim' ou 'Nao'): "+opcao+"\n"+RESET);
                                 contratoService.buscarContrato(opcao).imprimir();
+                                System.out.print(VERDE+"\nTem certeza que deseja remover o Contrato('Sim' ou 'Nao'): "+opcao+"\n"+RESET);
                                 if(linha.nextLine().toLowerCase().equals("sim")){
                                     contratoService.remover(opcao);
                                     System.out.println(VERDE+"Deletado com Sucesso!"+RESET);
@@ -172,7 +172,7 @@ public class Imobiliaria {
                                     System.out.println(VERMELHO+"Remover Cancelado!"+RESET);
                                 }
                             }
-                            case 5 -> {
+                            case 5 -> {//buscar
                                 contratoService.listar();
                                 System.out.println(VERDE+"Busca por Id do Contrato");
                                 System.out.println("Digite o Id do contrato: "+RESET);
@@ -312,7 +312,7 @@ public class Imobiliaria {
         return endereco;
     }
 
-    private static Imovel pegarInformacoesImovel(EnderecoService enderecoService) throws DadoInvalidoException {
+    private static Imovel pegarInformacoesImovel() throws DadoInvalidoException {
         System.out.println(ROXO+"Que tipo de imóvel você está informando? Apartamento(1) ou Casa(2)"+RESET);
         int tipo = linha.nextInt();
         linha.nextLine();
@@ -324,9 +324,6 @@ public class Imobiliaria {
             tipoImovel = TipoImovel.CASA;
         }
         Endereco endereco = pegarInformacoesEndereco();
-        if(!enderecoService.adicionar(endereco)){
-            throw new DadoInvalidoException();
-        }
 
         System.out.println(ROXO+"Quantos quartos este imóvel contêm?");
         int quartoQntd = linha.nextInt();
@@ -348,7 +345,6 @@ public class Imobiliaria {
             throw new DadoInvalidoException();
         }
         if (tipoImovel.equals(TipoImovel.CASA)) {
-            Imovel imovel = new Casa();
             System.out.println(ROXO+"Essa casa possui area de lazer? (Sim/Não)");
             boolean lazer = linha.nextLine().equalsIgnoreCase("sim");
 
