@@ -62,13 +62,24 @@ public class ImovelService implements Service<Imovel>{
     public void listar() {
         try {
             List<Imovel> listar = imovelRepository.listar();
-            System.out.println(listar.size());
             listar.forEach(imovel ->{
-                System.out.println("id: " + imovel.getIdImovel() + "| Dono: " + imovel.getDono().getNome() + "| Alugado: " + imovel.isAlugado());
+                System.out.println("id: " + imovel.getIdImovel() + "| Dono: " + imovel.getDono().getNome() + "| Alugado: " + (imovel.isAlugado()? "SIM":"NÃO"));
             });
 
         }catch (BancoDeDadosException e) {
-            System.out.println(e.getCause());
+            System.out.println(e.getCause()+"q");
+        }
+    }
+
+    public void listarImoveisDisponiveis() {
+        try {
+            List<Imovel> listar = imovelRepository.listarImoveisDisponiveis();
+            listar.forEach(imovel ->{
+                System.out.println("id: " + imovel.getIdImovel() + "| Dono: " + imovel.getDono().getNome() + "| Alugado: " + (imovel.isAlugado()? "SIM":"NÃO"));
+            });
+
+        }catch (BancoDeDadosException e) {
+            System.out.println(e.getCause()+"q");
         }
     }
 
@@ -76,7 +87,7 @@ public class ImovelService implements Service<Imovel>{
         try {
             return imovelRepository.buscarImovel(id);
         } catch(BancoDeDadosException e) {
-            throw new BancoDeDadosException(e.getCause());
+            throw new BancoDeDadosException(e.getCause()+"aaa");
         }
     }
 

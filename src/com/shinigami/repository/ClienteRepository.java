@@ -168,7 +168,7 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
         return clientes;
     }
 
-    public Cliente buscarCliente(int id) throws BancoDeDadosException {
+    public Cliente buscarCliente(Integer id) throws BancoDeDadosException {
         Cliente cliente = new Cliente();
         Connection con = null;
         try {
@@ -179,7 +179,6 @@ public class ClienteRepository implements Repositorio<Integer, Cliente> {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
-            System.out.println(stmt);
             ResultSet res = stmt.executeQuery();
             if (res.next()) {
                 cliente.setIdCliente(res.getInt("id_cliente"));

@@ -10,6 +10,8 @@ import model.com.shinigami.service.EnderecoService;
 import model.com.shinigami.service.ImovelService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -168,7 +170,6 @@ public class Imobiliaria {
                                     System.out.println(VERDE+"Deletado com Sucesso!"+RESET);
                                 }else {
                                     System.out.println(VERMELHO+"Remover Cancelado!"+RESET);
-
                                 }
                             }
                             case 5 -> {
@@ -178,8 +179,6 @@ public class Imobiliaria {
                                 int idContrato = linha.nextInt();
                                 linha.nextLine();
                                 contratoService.buscarContrato(idContrato).imprimir();
-
-
 
                             }default -> {
                                 throw new OpcaoInvalidaException();
@@ -441,16 +440,17 @@ public class Imobiliaria {
         contrato.setLocatario(clienteService.buscarCliente(linha.nextLine()));
 
         System.out.println("Escolha o imovel: ");
-        imovelService.listar();
+        imovelService.listarImoveisDisponiveis();
         int idImovel = linha.nextInt();
+        linha.nextLine();
         contrato.setImovel(imovelService.buscarImovel(idImovel));
 
         System.out.println("Digite a data de entrada: ");
-        LocalDate dataEntrada = (LocalDate.parse(linha.nextLine()));
+        LocalDate dataEntrada = LocalDate.parse(linha.nextLine().trim(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
         contrato.setDataEntrada(dataEntrada);
 
         System.out.println("Digite a data de vencimento: "+RESET);
-        LocalDate dataVencimento = LocalDate.parse(linha.nextLine());
+        LocalDate dataVencimento = (LocalDate.parse(linha.nextLine().trim(), DateTimeFormatter.ofPattern("d/MM/yyyy")));
         contrato.setDataVencimento(dataVencimento);
 
         Imovel imovel = imovelService.buscarImovel(idImovel);
@@ -458,6 +458,7 @@ public class Imobiliaria {
         double valorMensal = imovel.getValorMensal() + imovel.getCondominio();
         contrato.setValorAluguel(valorMensal);
         contrato.setLocador(imovel.getDono());
+        contrato.setAtivo(true);
 
         return contrato;
     }

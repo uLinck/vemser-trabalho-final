@@ -33,7 +33,7 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             contrato.setIdContrato(idProxContrato);
 
             String sql = "INSERT INTO CONTRATO\n"+
-                         " (ID_CONTRATO, VALOR_ALUGUEL, DATA_ENTRADA, DATA_VENCIMENTO, ID_CLIENTE_LOCATARIO, ID_CLIENTE_LOCADOR, ID_IMOVEL, ATIVO)" +
+                         " (ID_CONTRATO, VALOR_ALUGUEL, DATA_ENTRADA, DATA_VENCIMENTO, ID_LOCATARIO, ID_LOCADOR, ID_IMOVEL, ATIVO)" +
                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -49,6 +49,9 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarContrato.res=" + res);
+            ImovelRepository imovelRepository = new ImovelRepository();
+            contrato.getImovel().setAlugado(true);
+            imovelRepository.editar(contrato.getImovel().getIdImovel(),contrato.getImovel());
             return contrato;
 
         }catch (BancoDeDadosException e) {
@@ -81,7 +84,6 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             stmt.setInt(2, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("removerContratoPorId.res=" + res);
             return res > 0;
 
         }catch (SQLException e) {
@@ -108,8 +110,8 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             sql.append("UPDATE CONTRATO SET ");
             sql.append("DATA_ENTRADA = ?, ");
             sql.append("DATA_VENCIMENTO = ?, ");
-            sql.append("ID_CLIENTE_LOCATARIO = ?, ");
-            sql.append("ID_CLIENTE_LOCADOR = ? ");
+            sql.append("ID_LOCATARIO = ?, ");
+            sql.append("ID_LOCADOR = ? ");
             sql.append("WHERE ID_CONTRATO = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
@@ -192,12 +194,12 @@ public class ContratoRepository implements Repositorio<Integer, Contrato> {
             ImovelRepository imovelRepository = new ImovelRepository();
 
             String sql = "SELECT * FROM CONTRATO WHERE ID_CONTRATO = ?";
-            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
 
             ResultSet res = stmt.executeQuery(sql);
-
+            res.next();
             Contrato contrato = new Contrato();
             contrato.setIdContrato(res.getInt("id_contrato"));
             contrato.setValorAluguel(res.getDouble("valor_aluguel"));
